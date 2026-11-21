@@ -419,8 +419,82 @@ function seed(){
 let S;
 try{S=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){S=null}
 if(!S||!Array.isArray(S.clients))S=seed();
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast("לא נשמר. הדפדפן חוסם שמירה")}}
-save();
+if(!S.deleted||typeof S.deleted!=="object")S.deleted={};
+/* כל לקוח מקבל חותמת זמן (u) כשמשהו בו משתנה. בסנכרון, הגרסה החדשה יותר של כל לקוח מנצחת */
+const sig=c=>{const {u,...r}=c;return JSON.stringify(r)};
+const snap=new Map();S.clients.forEach(c=>snap.set(c.id,sig(c)));
+function stamp(){const now=Date.now();S.clients.forEach(c=>{const x=sig(c);if(snap.get(c.id)!==x){c.u=now;snap.set(c.id,x)}})}
+let pushT;
+function save(){stamp();try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast("לא נשמר. הדפדפן חוסם שמירה")}clearTimeout(pushT);pushT=setTimeout(()=>sync(),2500)}
+try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+
+/* ============ סנכרון דרך GitHub ============
+   הנתונים נשמרים בקובץ פרטי (gist) בחשבון GitHub שלך. הקוד (token) נשמר רק במכשיר, לא בגיבוי. */
+const SK="nextpoint_sync",FILE="nextpoint-method.json",GDESC="Next Point · נתוני שיטת הבנייה (פרטי)";
+let SY={token:"",gist:"",last:0,first:true,err:""};
+try{SY={...SY,...JSON.parse(localStorage.getItem(SK)||"{}")}}catch(e){}
+const saveSY=()=>{try{localStorage.setItem(SK,JSON.stringify(SY))}catch(e){}};
+async function gh(method,path,body){
+ const r=await fetch("https://api.github.com"+path,{method,cache:"no-store",headers:{Authorization:"Bearer "+SY.token,Accept:"application/vnd.github+json",...(body?{"Content-Type":"application/json"}:{})},body:body?JSON.stringify(body):undefined});
+ if(r.status===401)throw new Error("הקוד לא תקין או שפג תוקפו");
+ if(r.status===404)throw new Error("קובץ הנתונים לא נמצא");
+ if(!r.ok)throw new Error("GitHub החזיר שגיאה "+r.status);
+ return r.json();
+}
+const payload=()=>JSON.stringify({v:2,clients:S.clients,deleted:S.deleted});
+function merge(R,first){
+ const del={...S.deleted};Object.entries(R.deleted||{}).forEach(([k,t])=>{del[k]=Math.max(del[k]||0,t)});
+ const map=new Map();
+ const add=c=>{if(!c||!c.id)return;if(del[c.id]&&del[c.id]>=(c.u||0))return;const ex=map.get(c.id);if(!ex||(c.u||0)>(ex.u||0))map.set(c.id,c)};
+ (R.clients||[]).forEach(add);S.clients.forEach(add);
+ let list=[...map.values()];
+ if(first){const byName=new Map();list.forEach(c=>{const n=(c.name||"").trim();const ex=byName.get(n);if(!ex||(c.u||0)>(ex.u||0))byName.set(n,c)});list=[...byName.values()]}
+ S.clients=list;S.deleted=del;
+}
+let syncing=false,again=false,pendingRender=false;
+async function sync(){
+ if(!SY.token||!SY.gist)return;
+ if(syncing){again=true;return}
+ syncing=true;syncUI("מסנכרן…");
+ try{
+  const g=await gh("GET","/gists/"+SY.gist);
+  const f=g.files&&g.files[FILE];let R={};
+  if(f){const txt=f.truncated?await (await fetch(f.raw_url,{cache:"no-store"})).text():(f.content||"");try{R=JSON.parse(txt||"{}")}catch(e){R={}}}
+  const before=JSON.stringify([S.clients,S.deleted]);
+  merge(R,SY.first);SY.first=false;
+  S.clients.forEach(c=>snap.set(c.id,sig(c)));
+  try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}
+  const out=payload();
+  if(out!==JSON.stringify({v:2,clients:R.clients||[],deleted:R.deleted||{}}))await gh("PATCH","/gists/"+SY.gist,{files:{[FILE]:{content:out}}});
+  SY.last=Date.now();SY.err="";saveSY();
+  if(JSON.stringify([S.clients,S.deleted])!==before)softRender();
+ }catch(e){SY.err=e.message||"אין חיבור";saveSY()}
+ syncing=false;syncUI();
+ if(again){again=false;sync()}
+}
+function softRender(){const a=document.activeElement;if(a&&a.matches&&a.matches("input,textarea,select")){pendingRender=true;return}render()}
+document.addEventListener("focusout",()=>setTimeout(()=>{if(pendingRender&&!(document.activeElement&&document.activeElement.matches("input,textarea,select"))){pendingRender=false;render()}},200));
+function syncText(){
+ if(!SY.token||!SY.gist)return "לא מחובר. הנתונים רק במכשיר הזה";
+ if(SY.err)return "⚠️ "+SY.err;
+ if(!SY.last)return "עוד לא סונכרן";
+ return "✓ מסונכרן · "+new Date(SY.last).toLocaleTimeString("he-IL",{hour:"2-digit",minute:"2-digit"});
+}
+function syncUI(t){const el=document.getElementById("syncStatus");if(el)el.textContent=t||syncText()}
+async function connect(token){
+ SY.token=token.trim();SY.first=true;SY.err="";
+ syncUI("מתחבר…");
+ try{
+  let id="";
+  for(let page=1;page<=3&&!id;page++){const list=await gh("GET","/gists?per_page=100&page="+page);const hit=list.find(x=>x.files&&x.files[FILE]);if(hit)id=hit.id;if(list.length<100)break}
+  if(!id){const g=await gh("POST","/gists",{description:GDESC,public:false,files:{[FILE]:{content:payload()}}});id=g.id;SY.first=false}
+  SY.gist=id;saveSY();await sync();toast(SY.err?SY.err:"מחובר ומסונכרן");
+ }catch(e){SY.token="";SY.gist="";saveSY();toast(e.message||"החיבור נכשל")}
+ render();
+}
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")sync()});
+addEventListener("online",()=>sync());
+setInterval(()=>{if(document.visibilityState==="visible")sync()},60000);
 
 /* ============ עזרים ============ */
 const $=s=>document.querySelector(s);
@@ -494,6 +568,21 @@ function renderHome(){
   <div class="sec-h"><h2>לקוחות פתוחים</h2><span class="muted small">${open.length}</span></div>
   ${open.length?open.map(clientRow).join(""):`<div class="empty-state">אין לקוחות פתוחים.</div>`}
   ${closed.length?`<details class="closed"><summary>סגורים (${closed.length})</summary>${closed.map(clientRow).join("")}</details>`:""}
+  <div class="sec-h"><h2>סנכרון בין הטלפון למחשב</h2></div>
+  <div class="card">
+   <div style="font-weight:700" id="syncStatus">${esc(syncText())}</div>
+   ${SY.token&&SY.gist?`<p class="muted small" style="margin:6px 0 10px">כל שינוי נשמר ב-GitHub תוך כמה שניות, ומתעדכן במכשיר השני כשפותחים אותו.</p><div class="row"><button class="btn" id="syncNow">סנכרן עכשיו</button><button class="btn ghost danger" id="syncOff">נתק את המכשיר הזה</button></div>`:`
+   <p class="muted small" style="margin:6px 0 10px">מדביקים פעם אחת בכל מכשיר את אותו קוד גישה מ-GitHub. הנתונים נשמרים בקובץ פרטי בחשבון שלך.</p>
+   <div class="field" style="margin:0 0 10px"><label for="tok">קוד גישה (token)</label><input id="tok" type="password" dir="ltr" autocomplete="off" placeholder="ghp_..."></div>
+   <button class="btn primary" id="syncGo" style="width:100%">חבר וסנכרן</button>
+   <details style="margin-top:12px"><summary class="muted small">איך יוצרים את הקוד (3 דקות, פעם אחת)</summary>
+    <ol class="small muted" style="padding-inline-start:20px;line-height:1.8;margin:8px 0 0">
+     <li>במחשב, נכנסים ל-<a href="https://github.com/settings/tokens/new?description=Next%20Point%20sync&scopes=gist" target="_blank" rel="noopener" style="color:var(--text)">יצירת קוד ב-GitHub</a>. הקישור כבר מסמן את מה שצריך.</li>
+     <li>בודקים שמסומן <b>רק gist</b>. ב-Expiration בוחרים תוקף (שנה זה טוב).</li>
+     <li>לוחצים <b>Generate token</b> ומעתיקים את הקוד שמתחיל ב-ghp_.</li>
+     <li>מדביקים כאן, ושולחים אותו לעצמך כדי להדביק גם בטלפון. אחר כך מוחקים את ההודעה.</li>
+    </ol></details>`}
+  </div>
   <div class="sec-h"><h2>גיבוי</h2></div>
   <p class="muted small" style="margin:0 0 8px">הנתונים נשמרים רק בטלפון הזה. גיבוי פעם בשבוע שומר עליהם אם הדפדפן מתנקה.</p>
   <div class="row"><button class="btn ghost" id="exp">שמור גיבוי</button><button class="btn ghost" id="imp">טען גיבוי</button><input type="file" id="impFile" accept=".json,application/json" class="hide"></div>
@@ -503,9 +592,12 @@ function renderHome(){
  $("#newC").onclick=newClient;
  $("#genHome").onclick=()=>{view.from="home";const c=S.clients.find(x=>x.id===S.lastId)||S.clients.find(x=>BUILDING.includes(x.status))||S.clients[0];if(!c)return newClient();go({page:"general",id:c.id})};
  $("#quickHome").onclick=()=>{view.from="home";const c=S.clients.find(x=>x.id===S.lastId)||S.clients.find(x=>BUILDING.includes(x.status))||S.clients[0];if(!c)return newClient();go({page:"quick",id:c.id})};
+ const sg=$("#syncGo");if(sg)sg.onclick=()=>{const t=$("#tok").value.trim();if(!/^(ghp_|github_pat_)/.test(t)){toast("הקוד מתחיל ב-ghp_");return}connect(t)};
+ const sn=$("#syncNow");if(sn)sn.onclick=()=>sync();
+ const so=$("#syncOff");if(so)so.onclick=()=>{if(confirm("לנתק את המכשיר הזה? הנתונים נשארים כאן וב-GitHub, רק הסנכרון נעצר.")){SY={token:"",gist:"",last:0,first:true,err:""};saveSY();render()}};
  $("#exp").onclick=()=>{const b=new Blob([JSON.stringify(S,null,1)],{type:"application/json"});const u=URL.createObjectURL(b);const l=document.createElement("a");l.href=u;l.download=`nextpoint-backup-${TODAY()}.json`;document.body.append(l);l.click();l.remove();URL.revokeObjectURL(u);toast("הגיבוי נשמר בהורדות")};
  $("#imp").onclick=()=>$("#impFile").click();
- $("#impFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.clients))throw 0;if(confirm("לטעון את הגיבוי? הנתונים הנוכחיים יוחלפו.")){S=d;save();render();toast("הגיבוי נטען")}}catch(err){toast("הקובץ לא תקין")}};r.readAsText(f)};
+ $("#impFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.clients))throw 0;if(confirm("לטעון את הגיבוי? הנתונים הנוכחיים יוחלפו.")){S=d;if(!S.deleted)S.deleted={};S.clients.forEach(c=>{c.u=Date.now();snap.set(c.id,sig(c))});save();render();toast("הגיבוי נטען")}}catch(err){toast("הקובץ לא תקין")}};r.readAsText(f)};
 }
 function curStage(c){
  return {"התאמה":"fit","ניתוח":"s1","כיוונים":"s1b","סקיצה":"s2","מוכן לשליחה":"s4","נשלחה":"s5","מתעניין":"s5","הסכם":"s5","חי":"s5","לא":"s5"}[c.status]||"fit";
@@ -556,7 +648,7 @@ function renderClient(){
  bind("#i-sent","sentDate");bind("#i-last","lastContact");bind("#i-dead","deadline");
  $("#i-sent").addEventListener("change",()=>{if(c.sentDate){c.sent=true;save()}});
  bind("#i-replied","replied",t=>t.checked);
- $("#del").onclick=()=>{if(confirm(`למחוק את ${c.name}? אי אפשר לבטל.`)){S.clients=S.clients.filter(x=>x.id!==c.id);save();go({page:"home",editInfo:false});toast("נמחק")}};
+ $("#del").onclick=()=>{if(confirm(`למחוק את ${c.name}? אי אפשר לבטל.`)){S.deleted[c.id]=Date.now();S.clients=S.clients.filter(x=>x.id!==c.id);save();go({page:"home",editInfo:false});toast("נמחק")}};
  document.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{view.stage=b.dataset.st;view.hideDone=false;renderClient();const t=$("#tabs");t.scrollIntoView({block:"start"});window.scrollBy(0,-60)});
  const on=$(".tab.on");if(on)on.scrollIntoView({inline:"center",block:"nearest"});
  renderStage(c,st);
@@ -727,6 +819,7 @@ function renderGeneral(){
 function bottom(h){$("#bottomIn").innerHTML=h;$("#bottom").classList.remove("hide")}
 function render(){view.page==="client"?renderClient():view.page==="quick"?renderQuick():view.page==="general"?renderGeneral():renderHome()}
 render();
+sync();
 if("serviceWorker" in navigator&&isSecureContext)navigator.serviceWorker.register("sw.js").catch(()=>{});
 </script>
 </body>
