@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="robots" content="noindex">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Next Point · שיטת הבנייה</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-title" content="Next Point">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Lexend:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+ --bg:#0e0e0e;--panel:#171717;--panel2:#1f1f1f;--line:#2c2c2a;
+ --text:#f4f3ee;--muted:#9d9b93;--dim:#6d6b65;
+ --brand:#c8f03c;--brandInk:#111;--warn:#f2c14e;--bad:#ff8a7a;--ok:#c8f03c;
+ --r:14px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:Heebo,Arial,sans-serif;font-size:16px;line-height:1.5}
+button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px calc(96px + env(safe-area-inset-bottom))}
+/* brand bar */
+.top{position:sticky;top:0;z-index:20;background:rgba(14,14,14,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top-in{max-width:720px;margin:0 auto;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.logo{direction:ltr;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+.mark{width:34px;height:34px;border-radius:50%;background:#000;display:grid;place-items:center;border:1px solid #2a2a2a;flex:none}
+.mark svg{display:block}
+.word{font-family:Lexend,Heebo,sans-serif;font-weight:500;font-size:17px;letter-spacing:.2px}
+.top .sp{flex:1}
+.top .tag{font-size:13px;color:var(--muted)}
+.iconbtn{background:none;border:1px solid var(--line);border-radius:10px;padding:7px 11px;font-size:14px;color:var(--text)}
+/* common */
+h1{font-size:26px;line-height:1.2;margin:22px 0 4px;font-weight:800}
+h2{font-size:18px;margin:0;font-weight:700}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:12px 0}
+.btn{border:1px solid var(--line);background:var(--panel2);border-radius:12px;padding:12px 16px;font-weight:700;font-size:15px}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:var(--brandInk)}
+.btn.ghost{background:none}
+.btn.danger{color:var(--bad)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chip{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.hot{color:var(--bad);border-color:#5a2c26}
+.chip.go{color:var(--brand);border-color:#45531b}
+.chip.wait{color:var(--warn);border-color:#584816}
+/* alerts */
+.alert{border-radius:var(--r);padding:13px 15px;margin:10px 0;border:1px solid var(--line);background:var(--panel);display:flex;gap:10px;align-items:flex-start}
+.alert b{display:block}
+.alert .dot{width:9px;height:9px;border-radius:50%;margin-top:8px;flex:none}
+.alert.bad{border-color:#5a2c26}.alert.bad .dot{background:var(--bad)}
+.alert.warn{border-color:#584816}.alert.warn .dot{background:var(--warn)}
+.alert.ok .dot{background:var(--brand)}
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.metric{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px}
+.metric .n{font-size:26px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1}
+.metric .l{font-size:13px;color:var(--muted)}
+.goal{height:6px;background:#262624;border-radius:9px;overflow:hidden;margin-top:6px}
+.goal i{display:block;height:100%;background:var(--text);border-radius:9px}
+/* client list */
+.client{display:flex;align-items:center;gap:12px;width:100%;text-align:right;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:8px 0}
+.client .nm{font-weight:700;font-size:16px}
+.client .meta{font-size:13px;color:var(--muted)}
+.client .grow{flex:1;min-width:0}
+.client .arrow{color:var(--dim);font-size:18px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;margin:26px 0 4px}
+details.closed summary{cursor:pointer;color:var(--muted);font-size:14px;padding:8px 0}
+/* client page */
+.back{background:none;border:0;color:var(--muted);padding:14px 0 0;font-size:15px}
+.cl-head{display:flex;align-items:flex-start;gap:10px;justify-content:space-between}
+.action-box{border:1px solid #45531b;background:#151a08;border-radius:var(--r);padding:12px 14px;margin:12px 0}
+.action-box .l{font-size:12px;color:var(--brand);font-weight:700;letter-spacing:.3px}
+.action-box .v{font-weight:700;font-size:16px}
+.action-box.empty{border-color:#584816;background:#1a1608}
+.action-box.empty .l{color:var(--warn)}
+.field{margin:12px 0}
+.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:5px;font-weight:500}
+.field input,.field select,.field textarea{width:100%;background:#101010;border:1px solid var(--line);border-radius:10px;padding:11px 12px;outline:none;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:#77756d}
+.field .hint{font-size:12px;color:var(--dim);margin-top:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+/* stage tabs */
+.tabs{position:sticky;top:59px;z-index:15;background:var(--bg);display:flex;gap:6px;overflow-x:auto;padding:10px 0;margin:6px 0 0;scrollbar-width:none;border-bottom:1px solid var(--line)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:8px 13px;font-size:14px;font-weight:700;color:var(--muted);display:flex;gap:6px;align-items:center}
+.tab .p{font-size:12px;font-weight:500;color:var(--dim);font-variant-numeric:tabular-nums}
+.tab.on{background:var(--text);color:#111;border-color:var(--text)}
+.tab.on .p{color:#555}
+.tab.full .p{color:var(--brand)}
+.tab.on.full .p{color:#4f6b00}
+.stage-intro{margin:16px 0 6px}
+.stage-intro .q{font-size:20px;font-weight:800;line-height:1.3}
+.stage-intro .d{font-size:14px;color:var(--muted);margin-top:4px}
+.prog{display:flex;align-items:center;gap:10px;margin:10px 0 4px}
+.prog .bar{flex:1;height:6px;background:#262624;border-radius:9px;overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--brand);border-radius:9px;transition:width .2s}
+.prog .t{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.filter{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;padding:4px 0}
+/* groups + items */
+.group{margin:18px 0 0}
+.group-h{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.3px;margin:0 0 6px;display:flex;justify-content:space-between}
+.items{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.item{border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item-main{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;width:100%;background:none;border:0;text-align:right}
+.box{flex:none;width:24px;height:24px;border-radius:7px;border:1.5px solid #5e5c56;display:grid;place-items:center;margin-top:1px;font-size:15px;font-weight:800;color:var(--brandInk)}
+.item.done .box{background:var(--brand);border-color:var(--brand)}
+.item.na .box{border-style:dashed;color:var(--dim)}
+.item .tx{flex:1;font-size:15px;line-height:1.45}
+.item.done .tx{color:var(--muted)}
+.item.na .tx{color:var(--dim);text-decoration:line-through}
+.key{display:inline-block;font-size:11px;font-weight:800;color:var(--warn);margin-inline-start:6px;vertical-align:1px}
+.new{display:inline-block;font-size:11px;font-weight:800;color:#8fc7ff;margin-inline-start:6px;vertical-align:1px}
+.more{flex:none;background:none;border:1px solid var(--line);border-radius:8px;width:30px;height:30px;color:var(--muted);font-size:14px;font-weight:700;margin:-3px 0}
+.why{display:none;padding:0 50px 14px 14px;font-size:14px;color:var(--muted)}
+.item.open .why{display:block}
+.why .ref{font-size:12px;color:var(--dim);margin-top:6px}
+.why .na-btn{margin-top:8px;background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;font-size:13px;color:var(--muted)}
+/* fit */
+.fit-item{padding:13px 14px;border-top:1px solid var(--line)}
+.fit-item:first-child{border-top:0}
+.fit-q{font-size:15px;font-weight:500}
+.fit-w{font-size:13px;color:var(--muted);margin-top:3px}
+.yn{display:flex;gap:6px;margin-top:9px}
+.yn button{flex:1;background:#101010;border:1px solid var(--line);border-radius:9px;padding:8px;font-size:14px;font-weight:700;color:var(--muted)}
+.yn button.y.on{background:var(--text);color:#111;border-color:var(--text)}
+.yn button.n.on{background:#3a3a37;color:var(--text);border-color:#3a3a37}
+.verdict{border-radius:var(--r);padding:16px;margin:16px 0;border:1px solid var(--line);background:var(--panel)}
+.verdict .v{font-size:19px;font-weight:800;line-height:1.3}
+.verdict .w{font-size:14px;color:var(--muted);margin-top:6px}
+.verdict.go{border-color:#45531b;background:#151a08}.verdict.go .v{color:var(--brand)}
+.verdict.mid{border-color:#584816;background:#1a1608}.verdict.mid .v{color:var(--warn)}
+.verdict.no{border-color:#5a2c26;background:#1c0f0d}.verdict.no .v{color:var(--bad)}
+/* message analyzer */
+.msg textarea{min-height:200px;font-size:15px;line-height:1.6}
+.checks{margin-top:10px;display:grid;gap:6px}
+.ck{display:flex;gap:8px;font-size:14px;align-items:flex-start}
+.ck .s{flex:none;width:18px;text-align:center;font-weight:800}
+.ck.ok .s{color:var(--brand)}.ck.bad .s{color:var(--bad)}.ck.warn .s{color:var(--warn)}
+/* bottom bar */
+.bottom{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(14,14,14,.96);backdrop-filter:blur(8px);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.bottom-in{max-width:720px;margin:0 auto;display:flex;gap:8px}
+.bottom .btn{flex:1}
+.toast{position:fixed;bottom:calc(84px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#111;font-weight:700;font-size:14px;padding:10px 16px;border-radius:12px;opacity:0;pointer-events:none;transition:.2s;z-index:40;max-width:90vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.quickbtn{width:100%;margin-top:16px;display:flex;flex-direction:column;align-items:flex-start;gap:2px;background:var(--brand);color:var(--brandInk);border:0;border-radius:var(--r);padding:14px 16px;font-weight:800;font-size:18px;text-align:right}
+.quickbtn span{font-size:13px;font-weight:500}
+.qrow{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.qrow .quickbtn{margin-top:0;font-size:16px}
+.quickbtn.gen{background:var(--panel);color:var(--text);border:1px solid var(--line)}
+.quickbtn.gen span{color:var(--muted)}
+.empty-state{text-align:center;color:var(--muted);padding:30px 10px}
+.hide{display:none!important}
+@media(min-width:700px){h1{font-size:30px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ===== מסך פתיחה: אותו מסך לוגו כמו בשאלון ההמשך (מסמך 28). פעם אחת בכל פתיחה של האפליקציה, לחיצה מדלגת. מהירות: --t ===== */
+.splash{--t:1;position:fixed;inset:0;z-index:100;background:#111;color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:transform .6s cubic-bezier(.7,0,.2,1)}
+.splash.out{transform:translateY(-100%)}
+.splash .lg{direction:ltr;position:relative;width:176px;height:26px;margin-bottom:18px}
+.splash .d1,.splash .d2{position:absolute;top:2px;width:22px;height:22px;border-radius:50%}
+.splash .d1{left:0;background:var(--text);animation:sp-pop .35s ease both calc(.1s*var(--t))}
+.splash .d2{right:0;background:var(--brand);animation:sp-pop .35s ease both calc(.95s*var(--t))}
+.splash .d2::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid var(--brand);animation:sp-ring .9s ease-out both calc(1s*var(--t))}
+.splash .ln{position:absolute;left:16px;right:16px;top:12px;height:2px;background:var(--text);transform-origin:left;animation:sp-draw .55s cubic-bezier(.6,0,.2,1) both calc(.35s*var(--t))}
+.splash .nm{direction:ltr;font:500 26px Lexend,Heebo,sans-serif;letter-spacing:.02em;animation:sp-up .5s ease both calc(1.05s*var(--t))}
+.splash .ok{margin-top:40px;font-size:38px;font-weight:800;position:relative;padding-bottom:8px;animation:sp-up .5s ease both calc(1.4s*var(--t))}
+.splash .ok::after{content:"";position:absolute;right:0;left:0;bottom:0;height:2px;background:var(--text);transform-origin:right;animation:sp-draw .5s cubic-bezier(.6,0,.2,1) both calc(1.75s*var(--t))}
+.splash .nx{margin-top:12px;font-size:20px;color:#bdbab2;animation:sp-up .5s ease both calc(1.85s*var(--t))}
+@keyframes sp-pop{from{opacity:0;transform:scale(.4)}}
+@keyframes sp-draw{from{transform:scaleX(0)}}
+@keyframes sp-up{from{opacity:0;transform:translateY(10px)}}
+@keyframes sp-ring{from{transform:scale(1);opacity:.9}to{transform:scale(3);opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="splash" id="splash" aria-hidden="true"><div class="lg"><span class="ln"></span><span class="d1"></span><span class="d2"></span></div><div class="nm">Next Point</div><div class="ok">בונים לפניות.</div><div class="nx">לא רק אתר יפה.</div></div>
+<script>/* מסך הפתיחה: פעם אחת בכל פתיחה, לא בהפחתת תנועה */
+(function(){const sp=document.getElementById('splash');let seen=false;try{seen=sessionStorage.getItem('np-splash')==='1';sessionStorage.setItem('np-splash','1')}catch(e){}
+if(seen||matchMedia('(prefers-reduced-motion: reduce)').matches){sp.remove();return}
+let on=true;const end=()=>{if(!on)return;on=false;sp.classList.add('out');setTimeout(()=>sp.remove(),650)};sp.onclick=end;setTimeout(end,2900)})();
+</script>
+<header class="top">
+ <div class="top-in">
+  <a class="logo" href="#" id="homeLink" aria-label="Next Point, לדף הבית">
+   <span class="mark"><svg width="22" height="10" viewBox="0 0 22 10" aria-hidden="true"><circle cx="3.5" cy="5" r="3.2" fill="#f4f3ee"/><rect x="6.5" y="4.1" width="9" height="1.8" rx=".9" fill="#f4f3ee"/><circle cx="18.5" cy="5" r="3.2" fill="#c8f03c"/></svg></span>
+   <span class="word">Next Point</span>
+  </a>
+  <span class="sp"></span>
+  <span class="tag" id="topTag">שיטת הבנייה</span>
+ </div>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<div class="bottom hide" id="bottom"><div class="bottom-in" id="bottomIn"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ============ התוכן: השיטה של Next Point ============
+   key = סעיף שבלעדיו לא שולחים. new = הצעה חדשה שעוד לא נבדקה על לקוח. */
+const STAGES = [
+ {id:"fit", short:"התאמה", type:"fit",
+  q:"האם הלקוח הזה ישלם על אתר?",
+  d:"לפני שמשקיעים ימים בסקיצה. 6 פניות, 0 \"כן\": הבעיה הייתה בחירת הלקוח, לא איכות האתר.",
+  core:[
+   {id:"f1",t:"העסק כבר מכניס כסף",w:"יש מחיר, לקוחות משלמים, הזמנות או הופעות. מי שרק מתחיל: אין תקציב ואין דחיפות."},
+   {id:"f2",t:"אנשים כבר מתעניינים ופונים אליו",w:"תגובות כמו \"כמה עולה?\" או \"איך נרשמים?\". אתר הופך מבקרים שכבר מגיעים לפניות. הוא לא מביא תנועה חדשה."},
+   {id:"f3",t:"יש דליפה שאתר פותר, ואני יכול להצביע עליה",w:"מחיר או מידע מוסתר בהיילייט, קישור מקוצר, לא ברור למי זה מתאים, אין קישור לשלוח להורה. בלי דליפה ברורה אין לו סיבה לשלם."}
+  ],
+  extra:[
+   {id:"f4",t:"יש מספיק חומר אמיתי",w:"תמונות שלו, רילס, המלצה או תוצאה. פחות מ-3 פוסטים = אתר מאולתר (הלקח של כפיר)."},
+   {id:"f5",t:"יש סיבה לעכשיו",w:"הופעה, השקה, עונה, קמפיין. דחיפות הופכת \"יפה\" ל\"כן\"."}
+  ],
+  red:[
+   {id:"r1",t:"כבר יש לו אתר סביר",w:"עומר וארז. ממשיכים רק אם יש חולשה ספציפית שאפשר להראות בצילום מסך."},
+   {id:"r2",t:"הוא בונה לבד עם AI, או שיש לו צוות",w:"יונתן: \"אבנה לבד עם AI\"."},
+   {id:"r3",t:"יוצר תוכן צעיר, מהסוג שכבר אמר לא",w:"5 מתוך 5 סירובים. עדיפות ראשונה: עסק מקומי שמרוויח ואין לו אתר (מותג, סעיף 3)."}
+  ]},
+ {id:"s1", short:"ניתוח", type:"list", brief:true,
+  q:"מה הוא מוכר, למי, ומה עוצר פנייה היום?",
+  d:"השדות למעלה הם התקציר. הם נכנסים לכל העתקה ל-Claude.",
+  groups:[{h:"",items:[
+   {id:"a1",key:1,t:"יש פעולה ראשית אחת, בערוץ שהוא כבר משתמש בו",w:"הודעת וואטסאפ, תור, שיחה או כרטיס. פעולות משניות קטנות ממנה ולא מתחרות בה. כל חלק באתר ייבחן לפיה.",ref:"כלל יסוד 8 · מסמך 30"},
+   {id:"a2",key:1,t:"בדקתי מה עוצר פנייה היום, רק ממה שראיתי",w:"קישור מקוצר, אין מחיר, מידע בהיילייט, לא ברור למי זה מתאים. מה שלא ראיתי נרשם כהנחה.",ref:"מסמך 30, שלב 1"},
+   {id:"a3",t:"שורת \"למי\" במילים שלו, או \"אין\"",w:"המצב של הקהל שלו, ומה הם כבר ניסו ולא עבד. בעסק מקומי: המקום ואיך מגיעים. לא ממציאים.",ref:"מסמך 30"},
+   {id:"a4",t:"יש תמונה אמיתית שלו שחזקה מספיק לפתיחה",ref:"מסמך 24, סעיף 3.1"},
+   {id:"a5",t:"לכל טענה שתעלה לפתיחה יש הוכחה",w:"לוגו של לקוח, דירוג בגוגל או צילום מסך. אין הוכחה: הטענה לא בפתיחה.",ref:"מסמך 24, סעיף 3.2א"},
+   {id:"a6",t:"מיפיתי תוצאות והמלצות אמיתיות, עם מקור ומי קטין",ref:"מסמך 30"},
+   {id:"a7",t:"רשימת 6–8 רילס להורדה: מה יש בכל אחד ולאן הוא נכנס",ref:"מסמך 29"},
+   {id:"a8",key:1,t:"כל פרט שלא ראיתי נמצא ברשימת ההנחות",w:"גם פרט קטן: מספר, \"חדש\", \"עונה בעצמו\".",ref:"כלל יסוד 3"}
+  ]}]},
+ {id:"s1b", short:"כיוונים", type:"list",
+  q:"מה הדבר האחד שרק לו יש?",
+  d:"4 דפים קצרים בתמונה אחת. אתר מלא רק לכיוון שנבחר.",
+  groups:[{h:"",items:[
+   {id:"b1",t:"Claude קרא את ספריית הרעיונות ובדק מחקר נישה",ref:"מסמכים 25, 33"},
+   {id:"b2",key:1,t:"הרעיון בא מהחומר האמיתי שלו",w:"אצל נגה: היא עורכת, אז הפתיחה בנויה מפריימים שהיא ערכה.",ref:"מסמך 24, סעיף 8"},
+   {id:"b3",t:"4 כיוונים: 3 מהחומר שלו, ואחד מהמחקר",ref:"מסמך 30, שלב 1ב"},
+   {id:"b4",t:"ההבדל בין הכיוונים במבנה ובפריסה, לא רק בצבע"},
+   {id:"b5",key:1,t:"לכל כיוון יש שורת פניות",w:"איפה הפעולה הראשית במסך הראשון, ומה בכיוון עונה על מה שעוצר את הקהל."},
+   {id:"b6",t:"אף כיוון לא נראה כמו אתר קודם עם תמונות אחרות",w:"או שכל 4 התנאים של מסמך 30 מתקיימים, ו-Claude כתב \"דומה ל-X ב-Z\"."},
+   {id:"b7",t:"בחרתי לפי פניות קודם, ואז לפי יופי"}
+  ]}]},
+ {id:"s2", short:"סקיצה", type:"list",
+  q:"האם מבקר מהאינסטגרם שלו יפנה?",
+  d:"בודקים בטלפון, לא במחשב. 🟡 = בלי זה לא שולחים.",
+  groups:[
+   {h:"מסך ראשון בטלפון, בלי לגלול",items:[
+    {id:"c1",key:1,t:"רואים למי זה",w:"שורת \"למי\" משלב 1, אם יש לה חומר.",ref:"מבחן 3 השניות · מסמך 31"},
+    {id:"c2",key:1,t:"רואים מה מקבלים, במילים שלו",w:"\"ברוכים הבאים\" לא אומר כלום. הכותרת אומרת מה הוא נותן."},
+    {id:"c3",key:1,t:"רואים את הכפתור הראשי"},
+    {id:"c4",t:"השם והתמונה שלו בולטים"},
+    {id:"c5",t:"מיד אחרי המסך הראשון: הוכחה לטענה שבפתיחה",ref:"מסמך 24, סעיף 3.2א"}
+   ]},
+   {h:"תוכן",items:[
+    {id:"c6",key:1,t:"כל משפט במירכאות וכל מספר נמצאים בטבלת המקורות",w:"בלי מקור: נמחק או עובר להנחות. מספר שסותר בין מקורות: רק הניסוח שזהה בכולם.",ref:"מסמך 31, בדיקת מקור"},
+    {id:"c7",t:"אין שפה של AI",w:"\"פתרונות\", \"לא רק... אלא גם\", \"חוויה ייחודית\", קו מפריד ארוך, משפטי מילוי, משפט שחוזר.",ref:"מסמכים 9, 31"},
+    {id:"c8",t:"פונה לקהל כמו שהלקוח פונה אליו (נקבה, זכר או רבים)"},
+    {id:"c9",t:"המלצות הן צילומי מסך אמיתיים, עם שורת מקור",ref:"מסמך 24, סעיף 3.5"}
+   ]},
+   {h:"מבנה",items:[
+    {id:"c10",t:"יכולת, תוצאות והמלצות באים לפני הסיפור"},
+    {id:"c11",key:1,t:"כל חלק עונה על משהו שעוצר פנייה",w:"למי זה, מה מקבלים, הוכחה שזה עובד, כמה זה עולה, איך עובדים איתו. חלק שלא עונה על אף אחד: מקצרים או מוציאים.",ref:"בדיקת פניות · מסמך 31"},
+    {id:"c12",t:"יש תשובה לשאלת המחיר",w:"מחיר, טווח, או לפחות איך זה עובד. זו השאלה הראשונה של כמעט כל מבקר. אין? זה נכנס לחוסרים שמגבילים פניות.",isNew:1},
+    {id:"c13",t:"אין חלק שגבוה מ-3 מסכים בטלפון",ref:"מסמך 24, סעיף 6"}
+   ]},
+   {h:"עיצוב",items:[
+    {id:"c14",t:"העיצוב בנוי מהרעיון של הכיוון, לא מתבנית"},
+    {id:"c15",key:1,t:"צבע המותג רק על מה שלוחצים עליו",w:"60% רקע, 30% צבע שקט, 10% מותג: הכפתור הראשי, הכפתור הצף ומילה אחת בכותרת.",ref:"מסמך 24, סעיף 2א"},
+    {id:"c16",t:"אין רכיב שמחקה משהו, ואין קישוט במקום חומר",w:"לא צ'אט מצויר, לא מד שמתמלא, לא מונה.",ref:"כלל יסוד 7"},
+    {id:"c17",t:"התמונות נראות כמו צילום אחד, ותמונת הפתיחה מחוברת לעיצוב"},
+    {id:"c18",t:"לא נראה כמו האתר הקודם",ref:"מסמך 25"}
+   ]},
+   {h:"פניות",items:[
+    {id:"c19",key:1,t:"הפעולה הראשית זמינה לאורך כל הגלילה",w:"כפתור צף, או פס תחתון בעסק מקומי. מוסתר רק כשסרטון על המסך."},
+    {id:"c20",key:1,t:"מכל מקום באתר: עד 2 לחיצות עד הודעה שנשלחה",w:"כל צעד נוסף (העתקה, הדבקה, קישור מקוצר) הוא חסם."},
+    {id:"c21",t:"ההודעה המוכנה מתחילה במילים קבועות, כמו \"הגעתי מהאתר\"",w:"כך הלקוח רואה כמה פניות האתר הביא. בלי זה אין לו שום נתון, ולא תהיה לך המלצה עם מספר.",isNew:1},
+    {id:"c22",t:"אנימציה או אפקט לא מעכבים את הכפתור ולא מסתירים אותו"}
+   ]},
+   {h:"טלפון ואיכות",items:[
+    {id:"c23",key:1,t:"פתחתי בסמסונג שלי, מחוץ לוויי-פיי",w:"Claude בודק ב-390px. רק אתה בודק בטלפון אמיתי, באצבע."},
+    {id:"c24",t:"אין גלילה לצדדים, והכפתורים נוחים לאגודל"},
+    {id:"c25",t:"טקסט על תמונה או סרטון קריא",w:"4.5:1 לטקסט רגיל, 3:1 לכותרת גדולה.",ref:"מסמך 9"},
+    {id:"c26",t:"שלחתי לעצמי בוואטסאפ, ותמונת התצוגה מופיעה"},
+    {id:"c27",t:"noindex בסקיצה, og עם כתובות מלאות"},
+    {id:"c28",t:"כל הבדיקות האוטומטיות עברו, אין שגיאות בקונסול"}
+   ]},
+   {h:"מבקר חדש",items:[
+    {id:"c29",t:"הראיתי ל-5 שניות למישהו שלא מכיר את הלקוח",w:"ושאלתי: מה הוא מציע, ולאן היית לוחץ? Claude ואני כבר יודעים הכול. רק אדם חדש יגלה שהמסך הראשון לא ברור. הורה, אח, חבר מהכיתה.",isNew:1},
+    {id:"c30",t:"מצאתי את החלק הכי חלש, ותיקנתי או החלטתי להשאיר"}
+   ]}
+  ]},
+ {id:"s4", short:"הודעה", type:"msg",
+  q:"האם ההודעה גורמת לו לפתוח את הקישור?",
+  d:"הדבק את ההודעה. הבדיקה רצה תוך כדי. אחר כך הסעיפים שרק אתה יכול לבדוק.",
+  groups:[{h:"מה שרק אתה יכול לבדוק",items:[
+   {id:"m1",key:1,t:"יש פרט ספציפי מהפרופיל שלו, שמראה שבאמת הסתכלתי",ref:"מסמך 32, שלב 4"},
+   {id:"m2",t:"הבעיה מנוסחת בלי להעליב, ושונה מההודעה הקודמת"},
+   {id:"m3",key:1,t:"מה הוא מפסיד היום: 1–2 מצבים מוחשיים מהקהל שלו",w:"מי שמגיע מסרטון ולא מבין שזה בשבילו. הורה שלא יכול לקבל קישור. מידע שמוסתר בהיילייט."},
+   {id:"m4",t:"מה הוא מרוויח, במשפט אחד"},
+   {id:"m5",t:"כל טענה נשענת על הפרופיל שלו",w:"בלי סכום, אחוז או מספר פניות מומצא. ניסוח של הערכה מסמנים."},
+   {id:"m6",t:"הצעד הבא קל (5–10 דקות), והסיום הוא שאלה"},
+   {id:"m7",t:"פתחתי את הקישור בטלפון לפני ששלחתי"},
+   {id:"m8",t:"הקלטת גלילה מוכנה כגיבוי"}
+  ]}]},
+ {id:"s5", short:"מעקב", type:"list",
+  q:"מה קורה אחרי ששלחתי?",
+  d:"רוב העבודה הולכת לאיבוד כאן: לקוח שאמר \"מטורף\" ולא קיבל המשך חודש (דוד).",
+  groups:[{h:"",items:[
+   {id:"t1",key:1,t:"עדכנתי סטטוס ותאריך שליחה (כאן ובקובץ המעקב)"},
+   {id:"t2",key:1,t:"מתעניין: קיבל המשך תוך יומיים",ref:"מסמך 32, שלב 5"},
+   {id:"t3",t:"לא ענה שבוע: הודעת תזכורת אחת, קצרה, ואז סוגרים",w:"מאיר מחכה 4 שבועות בלי תזכורת. בעסק מקומי: לא סדרת הודעות (מסמך 32).",isNew:1},
+   {id:"t4",key:1,t:"אמר לא: תשובה מכבדת, מחקתי את הריפו, ולקח אחד",w:"בריפו יש תמונות ושם של אדם שלא אישר."},
+   {id:"t5",t:"מתעניין: שאלון ההמשך יצא, עם דדליין 3 ימים",ref:"מסמך 28"},
+   {id:"t6",t:"ביקשתי אישור לתמונות ולהמלצות של אנשים אחרים",w:"בקטינים, עדיף גם אישור של ההורים."},
+   {id:"t7",t:"את המחיר החלטתי אני. Claude רק הציע טווח"}
+  ]}]}
+];
+
+/* צ'קליסט מהיר: 12 סעיפים. כל סעיף מסמן את הסעיפים שלו בצ'קליסט המלא, כך ששניהם תמיד מסונכרנים */
+const QUICK=[
+ {h:"לפני שבונים",items:[
+  {t:"העסק מרוויח, אנשים כבר פונים, ויש דליפה שאני יכול להראות",ids:["q1"]},
+  {t:"פעולה ראשית אחת, בערוץ שהוא כבר משתמש בו",ids:["a1"]},
+  {t:"כל מה שלא ראיתי בעיניים מסומן כהנחה",ids:["a8"]}]},
+ {h:"בסקיצה",items:[
+  {t:"מסך ראשון בטלפון: למי זה, מה מקבלים, והכפתור",ids:["c1","c2","c3"]},
+  {t:"כל ציטוט וכל מספר עם מקור",ids:["c6"]},
+  {t:"כל חלק עונה על משהו שעוצר פנייה",ids:["c11"]},
+  {t:"הכפתור זמין בכל הגלילה, עד 2 לחיצות להודעה",ids:["c19","c20"]},
+  {t:"צבע המותג רק על כפתורים, ואין קישוט במקום חומר",ids:["c15","c16"]},
+  {t:"פתחתי בסמסונג מחוץ לוויי-פיי, ושלחתי לעצמי בוואטסאפ",ids:["c23","c26"]},
+  {t:"מישהו זר הבין תוך 5 שניות מה מוצע ואיפה לוחצים",ids:["c29"]}]},
+ {h:"שליחה",items:[
+  {t:"בהודעה: פרט ספציפי ממנו, ומה הוא מפסיד היום",ids:["m1","m3"]},
+  {t:"נשלח, ועדכנתי סטטוס ותאריך",ids:["t1"]}]}
+];
+const qDone=(c,i)=>i.ids.every(k=>c.checks[k]==="done");
+/* צ'קליסט כללי: כמעט מילה במילה מהשיחה עם ChatGPT. שינוי אחד: "טופס הפנייה עובד" הוחלף, כי באתרים שלך אין טופס */
+const GENERAL=[
+ {h:"1. אסטרטגיה",items:[
+  {id:"g1",t:"הגדרתי את המטרה העסקית של האתר",w:"מה המטרה המרכזית של האתר? איזו פעולה אני רוצה שהמבקר יבצע?"},
+  {id:"g2",t:"הבנתי מי קהל היעד",w:"מי הלקוח האידיאלי שלו?"},
+  {id:"g3",t:"זיהיתי את הבעיה של הלקוח",w:"איזו בעיה העסק פותר ללקוח? מה עלול לגרום למבקר לעזוב בלי לפנות?"},
+  {id:"g4",t:"הבנתי מה מבדל את העסק",w:"למה שלקוח יבחר דווקא בעסק הזה?"}]},
+ {h:"2. תוכן",items:[
+  {id:"g5",t:"הכותרת הראשית ברורה",w:"האם הכותרת מסבירה מה העסק מציע? \"ברוכים הבאים\" לא אומר כלום."},
+  {id:"g6",t:"היתרונות ללקוח ברורים",w:"האם המבקר מבין מה יוצא לו מזה? האם התוכן מדבר על הצרכים שלו או רק על העסק?"},
+  {id:"g7",t:"התוכן אמין ומדויק",w:"האם כל משפט באמת נחוץ? האם הטקסט מניע לפעולה בלי להישמע מוגזם?"},
+  {id:"g8",t:"יש הוכחות אמיתיות לאמינות",w:"המלצות, תוצאות, צילומי מסך. רק אמיתיים."}]},
+ {h:"3. מבנה",items:[
+  {id:"g9",t:"סדר האזורים הגיוני",w:"מה המבקר צריך לראות ראשון? איזה מידע הוא צריך כדי להמשיך להתעניין?"},
+  {id:"g10",t:"המידע החשוב מופיע בזמן הנכון",w:"איפה נכון להציג המלצות ושירותים?"},
+  {id:"g11",t:"יש מסלול ברור לפנייה",w:"באיזה שלב המבקר מקבל אפשרות לפנות?"},
+  {id:"g12",t:"אין אזורים מיותרים",w:"האם יש אזורים שחוזרים על עצמם בלי סיבה?"}]},
+ {h:"4. עיצוב",items:[
+  {id:"g13",t:"העיצוב מתאים לעסק",w:"האם הצבעים משדרים את התחושה הנכונה? האם העיצוב תומך בתוכן או מתחרה בו?"},
+  {id:"g14",t:"הטיפוגרפיה ברורה",w:"האם הכותרת הראשית בולטת מספיק?"},
+  {id:"g15",t:"יש היררכיה ויזואלית",w:"האם ברור מה הכי חשוב: כותרות, טקסטים וכפתורים? יש מספיק שטח ריק?"},
+  {id:"g16",t:"התמונות איכותיות ורלוונטיות"},
+  {id:"g17",t:"העיצוב עקבי ומקצועי",w:"האם כל האזורים נראים כחלק מאותה שפה? יש יותר מדי צבעים, אנימציות או אפקטים?"}]},
+ {h:"5. המרות",items:[
+  {id:"g18",t:"ברור מה הפעולה הרצויה",w:"האם המבקר יודע מה לעשות בכל שלב?"},
+  {id:"g19",t:"כפתורי הפנייה בולטים",w:"האם קל למצוא את כפתור יצירת הקשר?"},
+  {id:"g20",t:"תהליך הפנייה פשוט",w:"האם יש יותר מדי צעדים בדרך לפנייה? האם המבקר מקבל תשובות להתנגדויות שלו?"},
+  {id:"g21",t:"כפתור הפנייה עובד ופותח הודעה מוכנה",w:"אצל ChatGPT: \"טופס הפנייה עובד\". אצלך אין טופס, אז בודקים את כפתור הוואטסאפ או ההודעה באינסטגרם."}]},
+ {h:"6. איכות",items:[
+  {id:"g22",t:"בדקתי מובייל",w:"האם האתר נוח למי שגולש בטלפון? רוחבי מסך שונים?"},
+  {id:"g23",t:"בדקתי את כל הקישורים",w:"האם קישורי WhatsApp מובילים למקום הנכון?"},
+  {id:"g24",t:"בדקתי טעינה ותמונות",w:"האם הטעינה מהירה? אין שגיאות בקונסול?"},
+  {id:"g25",t:"בדקתי נגישות ו-SEO בסיסי",w:"כותרת עמוד ותיאור למנועי חיפוש. בסקיצה יש noindex בכוונה, אז SEO נבדק באתר הסופי."}]}
+];
+const STATUSES=["התאמה","ניתוח","כיוונים","סקיצה","מוכן לשליחה","נשלחה","מתעניין","הסכם","חי","לא"];
+const BUILDING=["ניתוח","כיוונים","סקיצה","מוכן לשליחה"];
+const SOURCES=["אינסטגרם","גוגל מפות","היכרות אישית","פנה אליי","אחר"];
+const BRIEF=[
+ {k:"action",l:"הפעולה הראשית (אחת)",ph:"למשל: הודעת וואטסאפ מוכנה, קניית כרטיס"},
+ {k:"sells",l:"מה הוא מוכר בפועל",ph:"ליווי, שירות, הופעה, קורס"},
+ {k:"who",l:"שורת \"למי\", במילים שלו",ph:"או \"אין\". לא ממציאים"},
+ {k:"blocks",l:"מה עוצר פנייה היום",ph:"קישור מקוצר, אין מחיר, מידע בהיילייט"},
+ {k:"missing",l:"חוסרים שמגבילים פניות",ph:"מספר וואטסאפ, מחיר, איך עובדים"}
+];
+const BANNED=[
+ ["—","קו מפריד ארוך"],["לא רק","\"לא רק... אלא\""],["פתרונות","\"פתרונות\""],["חוויה ייחודית","\"חוויה ייחודית\""],
+ ["לשלב הבא","\"לקחת לשלב הבא\""],["ברמה הגבוהה","\"ברמה הגבוהה ביותר\""],["יגדיל","הבטחה: \"יגדיל\""],["נגדיל","הבטחה: \"נגדיל\""],["להגדיל","הבטחה: \"להגדיל\""],
+ ["יביא לך לקוחות","הבטחה: \"יביא לך לקוחות\""],["עוקבים","הבטחה על עוקבים"],["מקום ראשון","\"מקום ראשון בגוגל\""],
+ ["הכי זול","\"הכי זול\""],["אנחנו","\"אנחנו\" (אתה עובד לבד)"],["הצוות","\"הצוות\""],["שנות ניסיון","\"שנות ניסיון\""],
+ ["לעסקים כבר","\"לעסקים כבר תקופה\" (עוד לא נכון)"],["בלי להתחייב","משפט מילוי"],["מצטער על","התנצלות"],["סליחה על","התנצלות"]
+];
+
+/* ============ שמירה ============ */
+const KEY="nextpoint_method_v2";
+const TODAY=()=>new Date().toISOString().slice(0,10);
+function seed(){
+ const c=(name,handle,niche,source,status,extra={})=>({id:Math.random().toString(36).slice(2,9),name,handle,niche,source,status,sent:false,sentDate:"",replied:false,lastContact:"",deadline:"",brief:{},checks:{},fit:{},notes:{},msg:"",created:TODAY(),...extra});
+ return {seeded:true,clients:[
+  c("דניאל ליזרוביץ","daniel_leyz","סטנדאפ וחיקויים","אינסטגרם","סקיצה",{deadline:"2026-12-17",brief:{action:"קניית כרטיס (קישור ישיר)",sells:"הופעת סטנדאפ, 17.12, תיאטרון המסילה"}}),
+  c("דן אלמוג","danalmog.edit","עורך וידאו לבעלי עסקים","אינסטגרם","סקיצה"),
+  c("ארז משולמי","magicmathteacher","מורה למתמטיקה בזום","אינסטגרם","ניתוח",{fit:{r1:"y"}}),
+  c("מאיר מירצקי","meir_miretsky","ליווי לעורכי וידאו","אינסטגרם","נשלחה",{sent:true,sentDate:"2026-10-24"}),
+  c("נועם אשתר","noam.ashtar","מאמן קליסטניקס","אינסטגרם","לא",{sent:true,replied:true,sentDate:"2026-10-18"}),
+  c("הלל","","LEADERS, עסק לבני נוער","אינסטגרם","לא",{sent:true,replied:true}),
+  c("עומר שנול","","הרצאות לנוער","אינסטגרם","לא",{sent:true,replied:true}),
+  c("עידו סגיב","","אימון מנטלי לנוער","אינסטגרם","לא",{sent:true,replied:true}),
+  c("יונתן גזונדהייט","","התפתחות אישית","אינסטגרם","לא",{sent:true,replied:true})
+ ]};
+}
+let S;
+try{S=JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){S=null}
+if(!S||!Array.isArray(S.clients))S=seed();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){toast("לא נשמר. הדפדפן חוסם שמירה")}}
+save();
+
+/* ============ עזרים ============ */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+const daysSince=d=>d?Math.floor((new Date(TODAY())-new Date(d))/864e5):null;
+const daysUntil=d=>d?Math.ceil((new Date(d)-new Date(TODAY()))/864e5):null;
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("show");clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove("show"),2200)}
+function allItems(st){return st.groups?st.groups.flatMap(g=>g.items):[]}
+function stageProg(cl,st){
+ if(st.type==="fit"){const qs=[...st.core,...st.extra,...st.red];const n=qs.filter(q=>cl.fit[q.id]).length;return{done:n,total:qs.length}}
+ const it=allItems(st);const na=it.filter(i=>cl.checks[i.id]==="na").length;
+ const done=it.filter(i=>cl.checks[i.id]==="done").length;return{done,total:it.length-na}
+}
+function fitVerdict(cl){
+ const st=STAGES[0];const f=cl.fit;const qs=[...st.core,...st.extra,...st.red];
+ if(qs.some(q=>!f[q.id]))return{c:"",v:"ענה על כל השאלות",w:"התשובה תגיד אם לבנות סקיצה, לשלוח קודם הודעה קצרה, או לדלג."};
+ const core=st.core.filter(q=>f[q.id]==="y").length;
+ const warn3=f.r3==="y"?" ⚠️ יוצר תוכן צעיר: אותו פרופיל של 5 הסירובים. אם בכל זאת, שיהיה בגלל דליפה ברורה.":"";
+ if(f.r1==="y"||f.r2==="y")return{c:"no",v:"לדלג, או הודעה קצרה בלבד",w:"כבר יש לו אתר, או שהוא בונה לבד. ממשיכים רק עם חולשה ספציפית שאפשר להראות בצילום מסך אחד."+warn3};
+ if(core===3&&f.f4==="y")return{c:"go",v:"שווה סקיצה",w:(f.f5==="y"?"יש גם סיבה לעכשיו. לבנות מהר ולשלוח השבוע.":"בלי סיבה לעכשיו: לבנות סקיצה ממוקדת, לא 4 כיוונים מלאים.")+warn3};
+ if(core>=2)return{c:"mid",v:"קודם הודעה קצרה עם צילום מסך אחד",w:"בונים סקיצה רק אחרי \"כן, תראה לי\" (הלקח של נועם)."+warn3};
+ return{c:"no",v:"לדלג",w:"אין מספיק סימנים שהוא ישלם. הזמן שלך שווה יותר בלקוח הבא."+warn3};
+}
+
+/* ============ דף הבית ============ */
+let view={page:"home",id:null,stage:"fit",hideDone:false};
+function go(v){view={...view,...v};render();window.scrollTo(0,0)}
+$("#homeLink").onclick=e=>{e.preventDefault();go({page:"home"})};
+
+function alerts(){
+ const out=[];const cs=S.clients;
+ cs.filter(c=>c.status==="מתעניין").forEach(c=>{const d=daysSince(c.lastContact||c.sentDate);if(d===null||d>=2)out.push({c:"bad",b:`${c.name} מתעניין ומחכה להמשך${d!==null?` (${d} ימים)`:""}`,t:"לפני כל עבודה אחרת. Claude כותב הודעה קצרה בקול שלך.",id:c.id})});
+ cs.filter(c=>c.deadline&&!["לא","חי"].includes(c.status)).forEach(c=>{const d=daysUntil(c.deadline);if(d!==null&&d>=0&&d<=30)out.push({c:(!c.sent||d<=7)?"bad":"warn",b:`${c.name}: נשארו ${d} ימים לתאריך היעד`,t:c.sent?"כבר נשלח. לוודא שיש המשך.":"עוד לא נשלח. כל יום שעובר מקטין את הערך שלו.",id:c.id})});
+ const ready=cs.filter(c=>c.status==="מוכן לשליחה");
+ if(ready.length)out.push({c:"bad",b:`${ready.map(c=>c.name).join(", ")}: מוכן ולא נשלח`,t:"סקיצה שלא נשלחה שווה אפס. לשלוח לפני שפותחים משהו חדש."});
+ const building=cs.filter(c=>BUILDING.includes(c.status));
+ if(building.length>=2)out.push({c:"warn",b:`${building.length} אתרים פתוחים בו זמנית`,t:"לסיים ולשלוח אחד לפני שמתחילים עוד אחד."});
+ cs.filter(c=>c.status==="נשלחה"&&!c.replied).forEach(c=>{const d=daysSince(c.sentDate);if(d!==null&&d>=7)out.push({c:"warn",b:`${c.name}: ${d} ימים בלי תשובה`,t:"תזכורת אחת קצרה, ואם אין תשובה, לסגור ולמחוק את הריפו.",id:c.id})});
+ return out;
+}
+function metrics(){
+ const cs=S.clients;
+ return{sent:cs.filter(c=>c.sent).length,replied:cs.filter(c=>c.replied||["מתעניין","הסכם","חי","לא"].includes(c.status)).length,yes:cs.filter(c=>["הסכם","חי"].includes(c.status)).length}
+}
+function chip(st){
+ const m={"מתעניין":"hot","מוכן לשליחה":"hot","הסכם":"go","חי":"go","נשלחה":"wait","לא":""};
+ return `<span class="chip ${m[st]??""}">${esc(st)}</span>`;
+}
+function renderHome(){
+ $("#topTag").textContent="שיטת הבנייה";
+ const a=alerts(),m=metrics();
+ const open=S.clients.filter(c=>c.status!=="לא"),closed=S.clients.filter(c=>c.status==="לא");
+ const order=s=>({"מתעניין":0,"מוכן לשליחה":1,"סקיצה":2,"כיוונים":3,"ניתוח":4,"התאמה":5,"נשלחה":6,"הסכם":7,"חי":8}[s]??9);
+ open.sort((x,y)=>order(x.status)-order(y.status));
+ const clientRow=c=>{
+  const cur=STAGES.find(s=>s.id===curStage(c));const p=cur?stageProg(c,cur):null;
+  let meta=[c.niche,c.handle?"@"+c.handle:""].filter(Boolean).join(" · ");
+  if(c.sent&&c.sentDate&&c.status==="נשלחה")meta+=` · נשלח לפני ${daysSince(c.sentDate)} ימים`;
+  return `<button class="client" data-open="${c.id}"><div class="grow"><div class="row" style="gap:8px"><span class="nm">${esc(c.name)}</span>${chip(c.status)}</div><div class="meta">${esc(meta)||"&nbsp;"}</div>${p&&c.status!=="לא"?`<div class="meta">${esc(cur.short)} · ${p.done}/${p.total}</div>`:""}</div><span class="arrow">‹</span></button>`;
+ };
+ $("#app").innerHTML=`
+  <div class="qrow"><button class="quickbtn" id="quickHome">⚡ צ'קליסט מהיר<span>12 סעיפים, דקה אחת</span></button><button class="quickbtn gen" id="genHome">צ'קליסט כללי<span>25 סעיפים, 6 קטגוריות</span></button></div>
+  <h1>מה הכי חשוב עכשיו</h1>
+  <p class="muted small" style="margin:0">לקוח ראשון משלם בא משליחה, לא מעוד אתר.</p>
+  ${a.length?a.map(x=>`<div class="alert ${x.c}" ${x.id?`data-open="${x.id}" style="cursor:pointer"`:""}><span class="dot"></span><div><b>${esc(x.b)}</b><span class="muted small">${esc(x.t)}</span></div></div>`).join(""):`<div class="alert ok"><span class="dot"></span><div><b>אין שום דבר דחוף</b><span class="muted small">זמן טוב למצוא את הלקוח הבא (שלב 0).</span></div></div>`}
+  <div class="metrics">
+   <div class="metric"><div class="n">${m.sent}<span class="muted" style="font-size:15px;font-weight:500"> / 10</span></div><div class="l">פניות שנשלחו</div><div class="goal"><i style="width:${Math.min(100,m.sent*10)}%"></i></div></div>
+   <div class="metric"><div class="n">${m.replied}</div><div class="l">ענו</div></div>
+   <div class="metric"><div class="n" style="color:${m.yes?"var(--brand)":"var(--text)"}">${m.yes}</div><div class="l">אמרו כן</div></div>
+  </div>
+  <div class="sec-h"><h2>לקוחות פתוחים</h2><span class="muted small">${open.length}</span></div>
+  ${open.length?open.map(clientRow).join(""):`<div class="empty-state">אין לקוחות פתוחים.</div>`}
+  ${closed.length?`<details class="closed"><summary>סגורים (${closed.length})</summary>${closed.map(clientRow).join("")}</details>`:""}
+  <div class="sec-h"><h2>גיבוי</h2></div>
+  <p class="muted small" style="margin:0 0 8px">הנתונים נשמרים רק בטלפון הזה. גיבוי פעם בשבוע שומר עליהם אם הדפדפן מתנקה.</p>
+  <div class="row"><button class="btn ghost" id="exp">שמור גיבוי</button><button class="btn ghost" id="imp">טען גיבוי</button><input type="file" id="impFile" accept=".json,application/json" class="hide"></div>
+ `;
+ bottom(`<button class="btn primary" id="newC">+ לקוח חדש</button>`);
+ document.querySelectorAll("[data-open]").forEach(el=>el.onclick=()=>openClient(el.dataset.open));
+ $("#newC").onclick=newClient;
+ $("#genHome").onclick=()=>{view.from="home";const c=S.clients.find(x=>x.id===S.lastId)||S.clients.find(x=>BUILDING.includes(x.status))||S.clients[0];if(!c)return newClient();go({page:"general",id:c.id})};
+ $("#quickHome").onclick=()=>{view.from="home";const c=S.clients.find(x=>x.id===S.lastId)||S.clients.find(x=>BUILDING.includes(x.status))||S.clients[0];if(!c)return newClient();go({page:"quick",id:c.id})};
+ $("#exp").onclick=()=>{const b=new Blob([JSON.stringify(S,null,1)],{type:"application/json"});const u=URL.createObjectURL(b);const l=document.createElement("a");l.href=u;l.download=`nextpoint-backup-${TODAY()}.json`;document.body.append(l);l.click();l.remove();URL.revokeObjectURL(u);toast("הגיבוי נשמר בהורדות")};
+ $("#imp").onclick=()=>$("#impFile").click();
+ $("#impFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const d=JSON.parse(r.result);if(!Array.isArray(d.clients))throw 0;if(confirm("לטעון את הגיבוי? הנתונים הנוכחיים יוחלפו.")){S=d;save();render();toast("הגיבוי נטען")}}catch(err){toast("הקובץ לא תקין")}};r.readAsText(f)};
+}
+function curStage(c){
+ return {"התאמה":"fit","ניתוח":"s1","כיוונים":"s1b","סקיצה":"s2","מוכן לשליחה":"s4","נשלחה":"s5","מתעניין":"s5","הסכם":"s5","חי":"s5","לא":"s5"}[c.status]||"fit";
+}
+function openClient(id){const c=S.clients.find(x=>x.id===id);if(!c)return;go({page:"client",id,stage:curStage(c)})}
+function newClient(){
+ const name=prompt("שם הלקוח");if(!name||!name.trim())return;
+ const c={id:Math.random().toString(36).slice(2,9),name:name.trim(),handle:"",niche:"",source:"אינסטגרם",status:"התאמה",sent:false,sentDate:"",replied:false,lastContact:"",deadline:"",brief:{},checks:{},fit:{},notes:{},msg:"",created:TODAY()};
+ S.clients.unshift(c);save();go({page:"client",id:c.id,stage:"fit",editInfo:true});
+}
+
+/* ============ דף לקוח ============ */
+function renderClient(){
+ const c=S.clients.find(x=>x.id===view.id);if(!c)return go({page:"home"});
+ if(S.lastId!==c.id){S.lastId=c.id;save()}
+ $("#topTag").textContent=c.name;
+ const st=STAGES.find(s=>s.id===view.stage)||STAGES[0];
+ const tabs=STAGES.map(s=>{const p=stageProg(c,s);return `<button class="tab ${s.id===st.id?"on":""} ${p.total&&p.done===p.total?"full":""}" data-st="${s.id}">${esc(s.short)}<span class="p">${p.done}/${p.total}</span></button>`}).join("");
+ const act=(c.brief.action||"").trim();
+ $("#app").innerHTML=`
+  <button class="back" id="back">› כל הלקוחות</button>
+  <div class="cl-head"><div><h1 style="margin-top:6px">${esc(c.name)}</h1><div class="muted small">${esc([c.niche,c.handle?"@"+c.handle:"",c.source].filter(Boolean).join(" · "))}</div></div><div class="row" style="margin-top:12px;gap:6px"><button class="iconbtn" id="toQuick">⚡ מהיר</button><button class="iconbtn" id="toGen">כללי</button><button class="iconbtn" id="editInfo">פרטים</button></div></div>
+  <div class="field" style="margin-bottom:0"><label for="status">סטטוס</label><select id="status">${STATUSES.map(s=>`<option ${s===c.status?"selected":""}>${s}</option>`).join("")}</select></div>
+  <div id="info" class="card ${view.editInfo?"":"hide"}">
+   <div class="two"><div class="field"><label for="i-name">שם</label><input id="i-name" value="${esc(c.name)}"></div><div class="field"><label for="i-handle">משתמש באינסטגרם</label><input id="i-handle" dir="ltr" value="${esc(c.handle)}" placeholder="username"></div></div>
+   <div class="two"><div class="field"><label for="i-niche">תחום</label><input id="i-niche" value="${esc(c.niche)}"></div><div class="field"><label for="i-source">מאיפה הגיע</label><select id="i-source">${SOURCES.map(s=>`<option ${s===c.source?"selected":""}>${s}</option>`).join("")}</select></div></div>
+   <div class="two"><div class="field"><label for="i-sent">תאריך שליחה</label><input id="i-sent" type="date" value="${esc(c.sentDate)}"></div><div class="field"><label for="i-last">הודעה אחרונה ממנו</label><input id="i-last" type="date" value="${esc(c.lastContact)}"></div></div>
+   <div class="two"><div class="field"><label for="i-dead">תאריך יעד שלו</label><input id="i-dead" type="date" value="${esc(c.deadline)}"><div class="hint">הופעה, השקה, עונה</div></div><div class="field"><label>&nbsp;</label><label style="display:flex;gap:8px;align-items:center;color:var(--text);font-size:15px"><input type="checkbox" id="i-replied" ${c.replied?"checked":""} style="width:20px;height:20px">ענה לי</label></div></div>
+   <div class="row" style="justify-content:space-between"><button class="btn ghost danger" id="del">מחק לקוח</button><button class="btn" id="closeInfo">סגור</button></div>
+  </div>
+  <div class="action-box ${act?"":"empty"}"><div class="l">${act?"כל חלק נבחן לפי הפעולה הראשית":"חסרה פעולה ראשית"}</div><div class="v">${act?esc(act):"נקבעת בשלב 1. בלעדיה אין לפי מה לבדוק את האתר."}</div></div>
+  <nav class="tabs" id="tabs">${tabs}</nav>
+  <section id="stage"></section>
+ `;
+ $("#back").onclick=()=>go({page:"home",editInfo:false});
+ $("#toGen").onclick=()=>go({page:"general",id:c.id,from:"client"});
+ $("#toQuick").onclick=()=>go({page:"quick",id:c.id,from:"client"});
+ $("#editInfo").onclick=()=>{view.editInfo=!view.editInfo;$("#info").classList.toggle("hide")};
+ $("#closeInfo").onclick=()=>{view.editInfo=false;$("#info").classList.add("hide")};
+ $("#status").onchange=e=>{
+  c.status=e.target.value;
+  if(c.status==="נשלחה"&&!c.sent){c.sent=true;if(!c.sentDate)c.sentDate=TODAY()}
+  if(["מתעניין","לא","הסכם"].includes(c.status)){c.replied=true;if(c.status==="מתעניין"&&!c.lastContact)c.lastContact=TODAY()}
+  save();toast("הסטטוס עודכן. לעדכן גם את קובץ המעקב");go({stage:curStage(c)});
+ };
+ const bind=(id,k,fn)=>{$(id).onchange=e=>{c[k]=fn?fn(e.target):e.target.value;save();if(k==="name")$("#topTag").textContent=c.name}};
+ bind("#i-name","name");bind("#i-handle","handle",t=>t.value.replace(/^@/,"").trim());bind("#i-niche","niche");bind("#i-source","source");
+ bind("#i-sent","sentDate");bind("#i-last","lastContact");bind("#i-dead","deadline");
+ $("#i-sent").addEventListener("change",()=>{if(c.sentDate){c.sent=true;save()}});
+ bind("#i-replied","replied",t=>t.checked);
+ $("#del").onclick=()=>{if(confirm(`למחוק את ${c.name}? אי אפשר לבטל.`)){S.clients=S.clients.filter(x=>x.id!==c.id);save();go({page:"home",editInfo:false});toast("נמחק")}};
+ document.querySelectorAll("[data-st]").forEach(b=>b.onclick=()=>{view.stage=b.dataset.st;view.hideDone=false;renderClient();const t=$("#tabs");t.scrollIntoView({block:"start"});window.scrollBy(0,-60)});
+ const on=$(".tab.on");if(on)on.scrollIntoView({inline:"center",block:"nearest"});
+ renderStage(c,st);
+ bottom(`<button class="btn primary" id="copy">העתק ל-Claude</button>`);
+ $("#copy").onclick=()=>copyFor(c,st);
+}
+
+function itemHTML(c,i){
+ const s=c.checks[i.id];
+ return `<div class="item ${s==="done"?"done":""} ${s==="na"?"na":""}" data-i="${i.id}">
+  <div style="display:flex;align-items:flex-start">
+   <button class="item-main" data-tog="${i.id}" aria-pressed="${s==="done"}"><span class="box">${s==="done"?"✓":s==="na"?"–":""}</span><span class="tx">${esc(i.t)}${i.key?'<span class="key" title="בלי זה לא שולחים">🟡</span>':""}${i.isNew?'<span class="new">חדש</span>':""}</span></button>
+   <button class="more" data-more="${i.id}" aria-label="למה ואיך בודקים" style="margin:12px 0 0 12px">?</button>
+  </div>
+  <div class="why">${i.w?esc(i.w):""}${i.isNew?`<div class="ref">הצעה חדשה מהבדיקה הזו. עוד לא נבדקה על לקוח.</div>`:""}${i.ref?`<div class="ref">${esc(i.ref)}</div>`:""}<button class="na-btn" data-na="${i.id}">${s==="na"?"מחזיר לבדיקה":"לא רלוונטי ללקוח הזה"}</button></div>
+ </div>`;
+}
+function renderStage(c,st){
+ const box=$("#stage");
+ const p=stageProg(c,st);
+ let html=`<div class="stage-intro"><div class="q">${esc(st.q)}</div><div class="d">${esc(st.d)}</div></div>`;
+ if(st.type==="fit"){
+  const q=(x,red)=>{const v=c.fit[x.id];return `<div class="fit-item"><div class="fit-q">${esc(x.t)}</div><div class="fit-w">${esc(x.w)}</div><div class="yn"><button class="y ${v==="y"?"on":""}" data-fit="${x.id}" data-v="y">כן</button><button class="n ${v==="n"?"on":""}" data-fit="${x.id}" data-v="n">לא</button></div></div>`};
+  const v=fitVerdict(c);
+  html+=`<div class="group"><div class="group-h">הכרחי</div><div class="items">${st.core.map(x=>q(x)).join("")}</div></div>
+   <div class="group"><div class="group-h">מחזק</div><div class="items">${st.extra.map(x=>q(x)).join("")}</div></div>
+   <div class="group"><div class="group-h">דגלים אדומים</div><div class="items">${st.red.map(x=>q(x,1)).join("")}</div></div>
+   <div class="verdict ${v.c}" id="verdict"><div class="v">${esc(v.v)}</div><div class="w">${esc(v.w)}</div></div>`;
+ }else{
+  if(st.brief){
+   html+=`<div class="card">${BRIEF.map(b=>`<div class="field"><label for="b-${b.k}">${esc(b.l)}</label><textarea id="b-${b.k}" rows="${b.k==="action"?1:2}" data-brief="${b.k}" placeholder="${esc(b.ph)}">${esc(c.brief[b.k]||"")}</textarea></div>`).join("")}</div>`;
+  }
+  if(st.type==="msg"){
+   html+=`<div class="card msg"><div class="field" style="margin:0"><label for="msgText">ההודעה ללקוח</label><textarea id="msgText" placeholder="הדבק כאן את ההודעה מ-Claude, אחרי התיקונים שלך">${esc(c.msg||"")}</textarea></div><div class="checks" id="msgChecks"></div></div>`;
+  }
+  html+=`<div class="prog"><div class="bar"><i style="width:${p.total?p.done/p.total*100:0}%"></i></div><span class="t">${p.done}/${p.total}</span><button class="filter" id="hideDone">${view.hideDone?"הצג הכול":"רק מה שנשאר"}</button></div>`;
+  st.groups.forEach(g=>{
+   const items=g.items.filter(i=>!view.hideDone||!c.checks[i.id]);
+   if(!items.length)return;
+   const gd=g.items.filter(i=>c.checks[i.id]==="done").length;
+   html+=`<div class="group">${g.h?`<div class="group-h"><span>${esc(g.h)}</span><span>${gd}/${g.items.length}</span></div>`:""}<div class="items">${items.map(i=>itemHTML(c,i)).join("")}</div></div>`;
+  });
+  const keysOpen=allItems(st).filter(i=>i.key&&!c.checks[i.id]).length;
+  if(keysOpen&&(st.id==="s2"||st.id==="s4"))html+=`<div class="alert warn" style="margin-top:16px"><span class="dot"></span><div><b>${keysOpen} סעיפים 🟡 פתוחים</b><span class="muted small">בלעדיהם לא שולחים. "העתק ל-Claude" שולח לו בדיוק אותם.</span></div></div>`;
+ }
+ html+=`<div class="field" style="margin-top:20px"><label for="note">הערות לשלב הזה</label><textarea id="note" rows="2" placeholder="מה לא עבד, מה לבקש מ-Claude">${esc(c.notes[st.id]||"")}</textarea></div>`;
+ box.innerHTML=html;
+
+ box.querySelectorAll("[data-fit]").forEach(b=>b.onclick=()=>{const k=b.dataset.fit;c.fit[k]=c.fit[k]===b.dataset.v?undefined:b.dataset.v;if(!c.fit[k])delete c.fit[k];save();renderStage(c,st);refreshTabs(c)});
+ box.querySelectorAll("[data-tog]").forEach(b=>b.onclick=()=>{const k=b.dataset.tog;c.checks[k]=c.checks[k]==="done"?undefined:"done";if(!c.checks[k])delete c.checks[k];save();const y=window.scrollY;renderStage(c,st);refreshTabs(c);window.scrollTo(0,y)});
+ box.querySelectorAll("[data-more]").forEach(b=>b.onclick=()=>b.closest(".item").classList.toggle("open"));
+ box.querySelectorAll("[data-na]").forEach(b=>b.onclick=()=>{const k=b.dataset.na;c.checks[k]=c.checks[k]==="na"?undefined:"na";if(!c.checks[k])delete c.checks[k];save();const y=window.scrollY;renderStage(c,st);refreshTabs(c);window.scrollTo(0,y)});
+ box.querySelectorAll("[data-brief]").forEach(t=>t.oninput=()=>{c.brief[t.dataset.brief]=t.value;save();if(t.dataset.brief==="action")refreshAction(c)});
+ const hd=$("#hideDone");if(hd)hd.onclick=()=>{view.hideDone=!view.hideDone;renderStage(c,st)};
+ $("#note").oninput=e=>{c.notes[st.id]=e.target.value;save()};
+ const mt=$("#msgText");if(mt){const run=()=>{c.msg=mt.value;save();$("#msgChecks").innerHTML=analyzeMsg(mt.value,c)};mt.oninput=run;run()}
+}
+function refreshTabs(c){document.querySelectorAll("[data-st]").forEach(b=>{const s=STAGES.find(x=>x.id===b.dataset.st);const p=stageProg(c,s);b.querySelector(".p").textContent=`${p.done}/${p.total}`;b.classList.toggle("full",!!p.total&&p.done===p.total)})}
+function refreshAction(c){const a=(c.brief.action||"").trim();const el=$(".action-box");el.classList.toggle("empty",!a);el.querySelector(".l").textContent=a?"כל חלק נבחן לפי הפעולה הראשית":"חסרה פעולה ראשית";el.querySelector(".v").textContent=a||"נקבעת בשלב 1. בלעדיה אין לפי מה לבדוק את האתר."}
+
+/* ============ בדיקת הודעה ============ */
+function analyzeMsg(txt,c){
+ const t=txt.trim();
+ if(!t)return `<div class="muted small">הבדיקה תופיע כאן.</div>`;
+ const words=t.split(/\s+/).filter(Boolean).length;
+ const r=[];
+ r.push(words<120?["warn",`${words} מילים. קצר מ-120: חסר ההפסד או הרווח?`]:words>180?["bad",`${words} מילים. ארוך מ-180: לקצר`]:["ok",`${words} מילים (בטווח 120–180)`]);
+ r.push(/^\S*\s*(היי|הי|שלום|אהלן)?[^\n]{0,30}אני אופיר/.test(t)||/אני אופיר/.test(t.slice(0,80))?["ok","פותח ב\"אני אופיר\""]:["warn","לא מצאתי \"אני אופיר\" בהתחלה"]);
+ r.push(/[?؟]\s*[\p{Emoji}\s]*$/u.test(t)?["ok","מסתיים בשאלה"]:["bad","לא מסתיים בשאלה. למשל: \"תסתכל מהטלפון ותגיד מה דעתך?\""]);
+ r.push(/https?:\/\/|github\.io|netlify\.app/.test(t)?["ok","יש קישור לסקיצה"]:["warn","אין קישור. אם הוא נשלח בנפרד, זה בסדר"]);
+ if(/\d+\s*%|\d[\d,]*\s*₪|\d+\s*פניות/.test(t))r.push(["warn","יש מספר, אחוז או סכום. לוודא שהוא מהפרופיל שלו ולא מומצא"]);
+ if(c.handle&&t.includes(c.handle))r.push(["ok","מזכיר את שם המשתמש שלו"]);
+ const found=BANNED.filter(([w])=>t.includes(w));
+ if(found.length)found.forEach(([,l])=>r.push(["bad",`להוריד: ${l}`]));else r.push(["ok","אין ביטויים אסורים מהרשימה"]);
+ return r.map(([s,x])=>`<div class="ck ${s}"><span class="s">${s==="ok"?"✓":s==="bad"?"✕":"!"}</span><span>${esc(x)}</span></div>`).join("")+`<div class="muted small" style="margin-top:6px">הבדיקה מוצאת מילים, לא מבינה טון. הסעיפים למטה בודקים את השאר.</div>`;
+}
+
+/* ============ העתקה ל-Claude ============ */
+async function copyFor(c,st){
+ const L=[];
+ L.push(`Next Point · בדיקה לפי השיטה`);
+ L.push(`לקוח: ${c.name}${c.handle?" (@"+c.handle+")":""} · סטטוס: ${c.status}`);
+ BRIEF.forEach(b=>{const v=(c.brief[b.k]||"").trim();if(v)L.push(`${b.l}: ${v}`)});
+ L.push("");
+ L.push(`שלב: ${st.short}`);
+ if(st.type==="fit"){
+  [...st.core,...st.extra,...st.red].forEach(q=>L.push(`${c.fit[q.id]==="y"?"כן":c.fit[q.id]==="n"?"לא":"?"} · ${q.t}`));
+  const v=fitVerdict(c);L.push("",`המסקנה של הכלי: ${v.v}`,"","בקשה: האם אתה מסכים עם המסקנה? אם לא, למה. תבדוק בפרופיל רק מה שסימנתי כ\"?\".");
+ }else{
+  const it=allItems(st);const p=stageProg(c,st);
+  const open=it.filter(i=>!c.checks[i.id]);const na=it.filter(i=>c.checks[i.id]==="na");
+  L.push(`הושלמו ${p.done}/${p.total}`);
+  if(open.length){L.push("","פתוח:");open.forEach(i=>L.push(`- ${i.key?"[חובה] ":""}${i.t}${i.ref?` (${i.ref})`:""}`))}
+  if(na.length){L.push("","לא רלוונטי ללקוח הזה:");na.forEach(i=>L.push(`- ${i.t}`))}
+  if(st.type==="msg"&&c.msg.trim())L.push("","ההודעה:",c.msg.trim());
+  L.push("",open.length?(st.type==="msg"?"בקשה: תבדוק את ההודעה מול הסעיפים הפתוחים ומסמך 27 סעיף 8. תקן רק מה שצריך.":"בקשה: עבור על הסעיפים הפתוחים, קודם [חובה]. לכל אחד: עובר או לא, ומה התיקון. תיקון שנוגע ביותר מחלק אחד: קודם תוכנית."):"בקשה: כל הסעיפים סומנו. תבדוק בעצמך את סעיפי [חובה] של השלב הזה, ותגיד אם משהו לא באמת עובר.");
+ }
+ const n=(c.notes[st.id]||"").trim();if(n)L.push("","הערות שלי:",n);
+ const text=L.join("\n");
+ try{await navigator.clipboard.writeText(text);toast("הועתק. הדבק בשיחה של הלקוח")}
+ catch(e){const ta=document.createElement("textarea");ta.value=text;document.body.append(ta);ta.select();try{document.execCommand("copy");toast("הועתק. הדבק בשיחה של הלקוח")}catch(_){toast("ההעתקה נחסמה בדפדפן")}ta.remove()}
+}
+
+/* ============ צ'קליסט מהיר ============ */
+function renderQuick(){
+ const c=S.clients.find(x=>x.id===view.id)||S.clients[0];if(!c)return go({page:"home"});
+ if(S.lastId!==c.id){S.lastId=c.id;save()}
+ $("#topTag").textContent="צ'קליסט מהיר";
+ const all=QUICK.flatMap(g=>g.items),done=all.filter(i=>qDone(c,i)).length;
+ const act=(c.brief.action||"").trim();
+ $("#app").innerHTML=`
+  <button class="back" id="back">› חזרה</button>
+  <h1 style="margin-top:6px">צ'קליסט מהיר</h1>
+  <div class="field"><label for="qc">לקוח</label><select id="qc">${S.clients.filter(x=>x.status!=="לא"||x.id===c.id).map(x=>`<option value="${x.id}" ${x.id===c.id?"selected":""}>${esc(x.name)} · ${esc(x.status)}</option>`).join("")}</select></div>
+  <div class="action-box ${act?"":"empty"}"><div class="l">${act?"הפעולה הראשית":"חסרה פעולה ראשית"}</div><div class="v">${act?esc(act):"בלי זה אין לפי מה לבדוק. ממלאים בשלב ניתוח."}</div></div>
+  <div class="prog"><div class="bar"><i style="width:${done/all.length*100}%"></i></div><span class="t">${done}/${all.length}</span></div>
+  ${QUICK.map(g=>`<div class="group"><div class="group-h"><span>${esc(g.h)}</span></div><div class="items">${g.items.map((i,n)=>{const d=qDone(c,i);return `<div class="item ${d?"done":""}"><button class="item-main" data-q="${esc(i.ids.join(","))}" aria-pressed="${d}"><span class="box">${d?"✓":""}</span><span class="tx">${esc(i.t)}</span></button></div>`}).join("")}</div></div>`).join("")}
+  <p class="muted small" style="margin-top:16px">כל סימון כאן מסמן גם בצ'קליסט המלא. מה שנכשל: פותחים את המלא ולוחצים "?".</p>
+  <button class="btn ghost" id="toFull" style="width:100%">לצ'קליסט המלא של ${esc(c.name)}</button>
+ `;
+ $("#back").onclick=()=>history.length&&view.from==="client"?go({page:"client",id:c.id}):go({page:"home"});
+ $("#qc").onchange=e=>go({page:"quick",id:e.target.value});
+ $("#toFull").onclick=()=>go({page:"client",id:c.id,stage:curStage(c)});
+ document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{const ids=b.dataset.q.split(",");const on=ids.every(k=>c.checks[k]==="done");ids.forEach(k=>{if(on)delete c.checks[k];else c.checks[k]="done"});save();const y=window.scrollY;renderQuick();window.scrollTo(0,y)});
+ bottom(`<button class="btn primary" id="qcopy">העתק ל-Claude</button>`);
+ $("#qcopy").onclick=async()=>{
+  const open=all.filter(i=>!qDone(c,i));
+  const L=[`Next Point · צ'קליסט מהיר`,`לקוח: ${c.name}${c.handle?" (@"+c.handle+")":""} · סטטוס: ${c.status}`,`פעולה ראשית: ${act||"לא נקבעה"}`,`עברו ${done}/${all.length}`];
+  if(open.length){L.push("","לא עבר עדיין:");open.forEach(i=>L.push("- "+i.t));L.push("","בקשה: לכל סעיף שרלוונטי לשלב שבו אנחנו: עובר או לא, ומה התיקון. סעיפים של שלב שעוד לא הגענו אליו: לדלג.")}
+  else L.push("","בקשה: הכול סומן. תבדוק בעצמך את 4 הסעיפים של הסקיצה ותגיד אם משהו לא באמת עובר.");
+  const text=L.join("\n");
+  try{await navigator.clipboard.writeText(text);toast("הועתק. הדבק בשיחה של הלקוח")}catch(e){toast("ההעתקה נחסמה בדפדפן")}
+ };
+}
+
+/* ============ צ'קליסט כללי ============ */
+function renderGeneral(){
+ const c=S.clients.find(x=>x.id===view.id)||S.clients[0];if(!c)return go({page:"home"});
+ if(S.lastId!==c.id){S.lastId=c.id;save()}
+ $("#topTag").textContent="צ'קליסט כללי";
+ const st={groups:GENERAL};const p=stageProg(c,st);
+ $("#app").innerHTML=`
+  <button class="back" id="back">› חזרה</button>
+  <h1 style="margin-top:6px">צ'קליסט כללי</h1>
+  <p class="muted small" style="margin:0">המבט הרחב, מהשיחה עם ChatGPT. לחיצה על "?" מראה את השאלות שמאחורי כל סעיף.</p>
+  <div class="field"><label for="gc">לקוח</label><select id="gc">${S.clients.filter(x=>x.status!=="לא"||x.id===c.id).map(x=>`<option value="${x.id}" ${x.id===c.id?"selected":""}>${esc(x.name)} · ${esc(x.status)}</option>`).join("")}</select></div>
+  <div class="prog"><div class="bar"><i style="width:${p.total?p.done/p.total*100:0}%"></i></div><span class="t">${p.done}/${p.total}</span></div>
+  <section id="genBox">${GENERAL.map(g=>{const gd=g.items.filter(i=>c.checks[i.id]==="done").length;return `<div class="group"><div class="group-h"><span>${esc(g.h)}</span><span>${gd}/${g.items.length}</span></div><div class="items">${g.items.map(i=>itemHTML(c,i)).join("")}</div></div>`}).join("")}</section>
+  <div class="alert" style="margin-top:16px"><span class="dot" style="background:var(--muted)"></span><div><b>3 שאלות לכל אלמנט שאתה מתלבט עליו</b><span class="muted small">למה הוא קיים? מה הוא גורם למבקר להבין או להרגיש? איך הוא עוזר לו להתקדם? אין תשובה טובה: כנראה מיותר.</span></div></div>
+ `;
+ $("#back").onclick=()=>view.from==="client"?go({page:"client",id:c.id}):go({page:"home"});
+ $("#gc").onchange=e=>go({page:"general",id:e.target.value});
+ const box=$("#genBox");
+ const rer=()=>{const y=window.scrollY;renderGeneral();window.scrollTo(0,y)};
+ box.querySelectorAll("[data-tog]").forEach(b=>b.onclick=()=>{const k=b.dataset.tog;if(c.checks[k]==="done")delete c.checks[k];else c.checks[k]="done";save();rer()});
+ box.querySelectorAll("[data-more]").forEach(b=>b.onclick=()=>b.closest(".item").classList.toggle("open"));
+ box.querySelectorAll("[data-na]").forEach(b=>b.onclick=()=>{const k=b.dataset.na;if(c.checks[k]==="na")delete c.checks[k];else c.checks[k]="na";save();rer()});
+ bottom(`<button class="btn primary" id="gcopy">העתק ל-Claude</button>`);
+ $("#gcopy").onclick=async()=>{
+  const L=[`Next Point · צ'קליסט כללי`,`לקוח: ${c.name}${c.handle?" (@"+c.handle+")":""} · סטטוס: ${c.status}`,`פעולה ראשית: ${(c.brief.action||"").trim()||"לא נקבעה"}`,`הושלמו ${p.done}/${p.total}`];
+  GENERAL.forEach(g=>{const open=g.items.filter(i=>!c.checks[i.id]);if(open.length){L.push("",g.h);open.forEach(i=>L.push("- "+i.t))}});
+  L.push("",p.done<p.total?"בקשה: עבור על הסעיפים הפתוחים מול האתר. לכל אחד: עובר או לא, ומה התיקון.":"בקשה: הכול סומן. תבדוק בעצמך ותגיד אם משהו לא באמת עובר.");
+  try{await navigator.clipboard.writeText(L.join("\n"));toast("הועתק. הדבק בשיחה של הלקוח")}catch(e){toast("ההעתקה נחסמה בדפדפן")}
+ };
+}
+
+/* ============ ניווט ============ */
+function bottom(h){$("#bottomIn").innerHTML=h;$("#bottom").classList.remove("hide")}
+function render(){view.page==="client"?renderClient():view.page==="quick"?renderQuick():view.page==="general"?renderGeneral():renderHome()}
+render();
+if("serviceWorker" in navigator&&isSecureContext)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
