@@ -15,7 +15,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&family=Lexend:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@900&family=Heebo:wght@400;500;700;800&family=Lexend:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{
  --bg:#0e0e0e;--panel:#171717;--panel2:#1f1f1f;--line:#2c2c2a;
@@ -163,6 +163,80 @@ details.closed summary{cursor:pointer;color:var(--muted);font-size:14px;padding:
 .hide{display:none!important}
 @media(min-width:700px){h1{font-size:30px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+/* ===== למידה: 6 עקרונות עיצוב (מסמך 35). ההתקדמות נשמרת בנפרד, במפתח nextpoint_learn_v1, ולא נוגעת בנתוני הלקוחות ===== */
+.learnbtn{width:100%;margin-top:8px;display:grid;gap:3px;text-align:right;background:var(--panel);border:1px solid #45531b;border-radius:var(--r);padding:14px 16px;color:var(--text)}
+.learnbtn .lb-t{font-weight:800;font-size:16px}
+.learnbtn .lb-s{font-size:13px;color:var(--muted)}
+.learnbtn .lb-bar{height:5px;background:#262624;border-radius:9px;overflow:hidden;margin-top:6px}
+.learnbtn .lb-bar i{display:block;height:100%;background:var(--brand);border-radius:9px}
+.ls-card{display:flex;gap:14px;align-items:flex-start;width:100%;text-align:right;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:8px 0;color:var(--text)}
+.ls-card .no{flex:none;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font:900 19px 'Frank Ruhl Libre',Heebo,serif;background:var(--panel2);border:1px solid var(--line)}
+.ls-card.done .no{background:var(--brand);color:var(--brandInk);border-color:var(--brand)}
+.ls-card .tt{font-weight:800;font-size:16px;line-height:1.3}
+.ls-card .rl{font-size:14px;color:var(--muted);margin-top:2px;line-height:1.45}
+.ls-card .st{font-size:12px;font-weight:700;margin-top:6px;color:var(--dim)}
+.ls-card.done .st{color:var(--brand)}
+.lesson-h{margin:8px 0 0}
+.lesson-h .k{font-size:13px;color:var(--muted);font-weight:700}
+.rule{font:900 25px/1.25 'Frank Ruhl Libre',Heebo,serif;margin:6px 0 4px;letter-spacing:-.005em}
+.l-sec{margin:26px 0 0}
+.l-sec>h2{font-size:15px;color:var(--muted);font-weight:700;margin:0 0 8px}
+.l-sec p{margin:0 0 8px;line-height:1.65}
+.l-steps{margin:0;padding-inline-start:20px;line-height:1.7}
+.l-steps li{margin:4px 0}
+.l-tab{width:100%;border-collapse:collapse;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.l-tab td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+.l-tab tr:first-child td{border-top:0}
+.l-tab td:last-child{font-weight:700;white-space:nowrap;text-align:left;direction:ltr}
+.l-mist{border:1px solid #5a2c26;background:#1c0f0d;border-radius:var(--r);padding:12px 14px;line-height:1.6}
+.l-case{border:1px solid var(--line);background:var(--panel);border-radius:var(--r);padding:12px 14px;line-height:1.6}
+.l-case b{color:var(--brand)}
+.l-say{border:1px solid #45531b;background:#151a08;border-radius:var(--r);padding:12px 14px;line-height:1.6}
+.l-say .btn{margin-top:10px;width:100%}
+/* לפני ואחרי: שני טלפונים קטנים */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cmp figure{margin:0}
+.cmp figcaption{font-size:13px;font-weight:800;margin-bottom:6px;color:var(--bad)}
+.cmp figure+figure figcaption{color:var(--brand)}
+.ph{aspect-ratio:9/16.5;background:#f3efe7;border-radius:18px;border:5px solid #2a2a28;overflow:hidden;position:relative;display:flex;flex-direction:column;color:#161412}
+.ph .pad{padding:10px 10px 0;display:flex;flex-direction:column}
+.cmp .note{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.45}
+.w-t{background:#161412;border-radius:2px}
+.w-g{background:#8c857a;border-radius:2px}
+.w-l{height:3px;background:#b9b0a2;border-radius:2px}
+.w-btn{height:15px;background:#c8161d;border-radius:3px}
+.w-ob{height:15px;border:1.5px solid #161412;border-radius:3px}
+.w-img{background:#cfc6b6;border-radius:3px;position:relative;overflow:hidden}
+.w-dark{background:#161412}
+.w-name{font:700 8px Heebo,sans-serif;color:#161412;display:flex;justify-content:space-between}
+.w-name span:last-child{color:#8c857a;font-weight:400}
+.w-cap{position:absolute;inset-inline:18%;top:40%;background:#fff;color:#000;font:800 7px Heebo;text-align:center;padding:2px 0;border-radius:2px}
+.w-chat{background:#efe7dc;border-radius:3px;padding:5px;display:grid;gap:3px}
+.w-chat i{display:block;height:5px;border-radius:3px;background:#fff;width:70%}
+.w-chat i:nth-child(even){background:#d8f5c4;margin-inline-start:auto;width:55%}
+.w-hl{font:900 15px/1.05 'Frank Ruhl Libre',serif;color:#161412}
+.w-sans{font:700 13px/1.15 Heebo,sans-serif;color:#161412}
+.w-u{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 14' preserveAspectRatio='none'%3E%3Cpath d='M3 9.5C40 5 90 3.5 197 6.5' fill='none' stroke='%23c8161d' stroke-width='5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat 0 100%/100% .25em;padding-bottom:.05em}
+.w-num{font:900 22px/1 'Frank Ruhl Libre',serif;color:#f3efe7}
+/* בוחן */
+.qz{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:10px 0}
+.qz .q{font-weight:700;line-height:1.45;margin-bottom:10px}
+.qz .opts{display:grid;gap:8px}
+.qz .opts button{text-align:right;background:#101010;border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:15px;line-height:1.4}
+.qz .opts button.ok{border-color:var(--brand);background:#151a08}
+.qz .opts button.no{border-color:#5a2c26;background:#1c0f0d}
+.qz .ex{font-size:14px;color:var(--muted);margin-top:10px;line-height:1.55}
+.qz .ex b{color:var(--text)}
+/* מילים */
+.wd{width:100%;text-align:right;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:14px;margin:8px 0;color:var(--text);display:block}
+.wd .w{font-weight:800;font-size:17px}
+.wd .w small{font-weight:500;color:var(--dim);font-size:13px;margin-inline-start:6px}
+.wd .d{display:none;margin-top:8px;line-height:1.6;color:var(--muted);font-size:15px}
+.wd .d b{color:var(--text)}
+.wd.open .d{display:block}
+.wd .tap{font-size:12px;color:var(--dim);margin-top:4px}
+.wd.open .tap{display:none}
+.wd.known{border-color:#45531b}
 /* ===== מסך פתיחה: אותו מסך לוגו כמו בשאלון ההמשך (מסמך 28). פעם אחת בכל פתיחה של האפליקציה, לחיצה מדלגת. מהירות: --t ===== */
 .splash{--t:1;position:fixed;inset:0;z-index:100;background:#111;color:var(--text);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:transform .6s cubic-bezier(.7,0,.2,1)}
 .splash.out{transform:translateY(-100%)}
@@ -557,6 +631,7 @@ function renderHome(){
  };
  $("#app").innerHTML=`
   <div class="qrow"><button class="quickbtn" id="quickHome">⚡ צ'קליסט מהיר<span>12 סעיפים, דקה אחת</span></button><button class="quickbtn gen" id="genHome">צ'קליסט כללי<span>25 סעיפים, 6 קטגוריות</span></button></div>
+  <button class="learnbtn" id="learnHome"><span class="lb-t">למידה · 6 עקרונות עיצוב</span><span class="lb-s">${learnSummary()}</span><span class="lb-bar"><i style="width:${learnPct()}%"></i></span></button>
   <h1>מה הכי חשוב עכשיו</h1>
   <p class="muted small" style="margin:0">לקוח ראשון משלם בא משליחה, לא מעוד אתר.</p>
   ${a.length?a.map(x=>`<div class="alert ${x.c}" ${x.id?`data-open="${x.id}" style="cursor:pointer"`:""}><span class="dot"></span><div><b>${esc(x.b)}</b><span class="muted small">${esc(x.t)}</span></div></div>`).join(""):`<div class="alert ok"><span class="dot"></span><div><b>אין שום דבר דחוף</b><span class="muted small">זמן טוב למצוא את הלקוח הבא (שלב 0).</span></div></div>`}
@@ -590,6 +665,7 @@ function renderHome(){
  bottom(`<button class="btn primary" id="newC">+ לקוח חדש</button>`);
  document.querySelectorAll("[data-open]").forEach(el=>el.onclick=()=>openClient(el.dataset.open));
  $("#newC").onclick=newClient;
+ $("#learnHome").onclick=()=>go({page:"learn"});
  $("#genHome").onclick=()=>{view.from="home";const c=S.clients.find(x=>x.id===S.lastId)||S.clients.find(x=>BUILDING.includes(x.status))||S.clients[0];if(!c)return newClient();go({page:"general",id:c.id})};
  $("#quickHome").onclick=()=>{view.from="home";const c=S.clients.find(x=>x.id===S.lastId)||S.clients.find(x=>BUILDING.includes(x.status))||S.clients[0];if(!c)return newClient();go({page:"quick",id:c.id})};
  const sg=$("#syncGo");if(sg)sg.onclick=()=>{const t=$("#tok").value.trim();if(!/^(ghp_|github_pat_)/.test(t)){toast("הקוד מתחיל ב-ghp_");return}connect(t)};
@@ -815,9 +891,218 @@ function renderGeneral(){
  };
 }
 
+/* ============ למידה: 6 עקרונות עיצוב (מסמך 35) ============
+   ההתקדמות נשמרת במפתח נפרד (LK), כדי שלא תיגע בנתוני הלקוחות ובסנכרון שלהם. */
+const LK="nextpoint_learn_v1";
+let LS={q:{},w:{}};
+try{const r=JSON.parse(localStorage.getItem(LK)||"null");if(r&&r.q&&r.w)LS=r}catch(e){}
+const saveLS=()=>{try{localStorage.setItem(LK,JSON.stringify(LS))}catch(e){}};
+
+/* חלקים קטנים לציור הטלפונים של "לפני" ו"אחרי" */
+const W={
+ t:(w,h)=>`<div class="w-t" style="width:${w}%;height:${h}px"></div>`,
+ g:(w,h)=>`<div class="w-g" style="width:${w}%;height:${h}px"></div>`,
+ l:w=>`<div class="w-l" style="width:${w}%"></div>`,
+ gap:h=>`<div style="height:${h}px;flex:none"></div>`,
+ btn:()=>`<div class="w-btn"></div>`,
+ name:(f)=>`<div class="w-name"${f?` style="font:900 9px 'Frank Ruhl Libre',serif"`:""}><span>השם</span><span>מה הוא עושה</span></div>`,
+ person:(h)=>`<svg viewBox="0 0 60 80" style="height:${h}px;display:block;margin:0 auto" aria-hidden="true"><circle cx="30" cy="16" r="11" fill="#4a3f35"/><path d="M8 80V52c0-12 9-20 22-20s22 8 22 20v28z" fill="#e9e6e0" stroke="#cfc8bb"/></svg>`,
+ chat:(w)=>`<div class="w-chat" style="width:${w}%"><i></i><i></i><i></i><i></i></div>`
+};
+const phone=(inner,extra)=>`<div class="ph"><div class="pad" style="${extra||""}">${inner}</div></div>`;
+const col=(a)=>a.join("");
+
+const LESSONS=[
+{id:"p1",n:1,title:"מסך ראשון = 4 דברים",
+ rule:"במסך הראשון בטלפון יש רק כותרת, שורה אחת, כפתור אחד ותמונה של הלקוח.",
+ before:phone(col([W.name(),W.gap(5),`<div class="w-img" style="height:46px"></div>`,W.gap(4),W.t(95,6),W.gap(2),W.t(80,6),W.gap(3),W.l(95),W.gap(2),W.l(90),W.gap(2),W.l(70),W.gap(4),`<div class="w-dark" style="height:30px;border-radius:3px"></div>`,W.gap(4),`<div style="display:grid;grid-template-columns:1fr 1fr;gap:3px"><div class="w-ob"></div><div class="w-ob"></div></div>`,W.gap(3),W.btn()])),
+ after:`<div class="ph"><div class="pad">${col([W.name(),W.gap(14),W.t(95,11),W.gap(3),W.t(80,11),W.gap(3),W.g(70,7),W.gap(10),W.l(95),W.gap(3),W.l(75),W.gap(12),W.btn()])}</div><div style="flex:1"></div>${W.person(70)}<div class="w-dark" style="height:16px"></div></div>`,
+ bNote:"7 דברים. העין קופצת ביניהם ולא נוחתת על אף אחד.",
+ aNote:"4 דברים. העין קוראת לפי הסדר: כותרת, שורה, כפתור, אדם.",
+ why:["מבקר מחליט אם להישאר תוך פחות משנייה. מחקר של גוגל מצא שאתרים עם מעט דברים ומבנה מוכר נתפסים כיפים ביותר, והשיפוט קורה תוך 17 עד 50 אלפיות שנייה.","כשיש 7 דברים, כל אחד מהם נלחם על תשומת הלב. כשיש 4, הם עובדים יחד."],
+ nums:[["דברים במסך הראשון","4"],["כפתורים במסך הראשון","1"],["מה יורד למטה","הוכחות, בחירות, סיפור"]],
+ eye:["פותחים את האתר בטלפון ולא גוללים.","מסתכלים שנייה אחת, וסוגרים את העיניים.","שואלים: מה ראיתי ראשון? אם יש יותר מתשובה אחת, יש יותר מדי."],
+ mistake:"לחשוב שכל דבר \"חשוב שיראו מיד\". כשהכול חשוב, שום דבר לא חשוב. הוכחה שמחכה 10 שניות לגלילה עובדת יותר טוב מהוכחה שצפופה במסך הראשון.",
+ hillel:"<b>לפני:</b> 7 דברים (שם, תמונה, כותרת, פסקה, בלוק הוכחה, 2 בחירות, כפתור). <b>אחרי:</b> 4. ההוכחה ירדה לחלק הכהה, והבחירות לסוף.",
+ say:"במסך הראשון בטלפון רק 4 דברים: כותרת, שורה אחת, כפתור אחד ותמונה של הלקוח. כל השאר יורד למטה (מסמך 35, עיקרון 1).",
+ quiz:[
+  {q:"בפתיחה יש כותרת, שורה, כפתור, תמונה ושני כפתורי בחירה. מה עושים?",o:["משאירים, כי הבחירות עוזרות לפנות","מורידים את הבחירות למטה, והכפתור בפתיחה גולל אליהן","מקטינים הכול כדי שייכנס"],a:1,e:"הבחירות חשובות, אבל לא במסך הראשון. <b>הכפתור בפתיחה גולל אליהן,</b> וכך המסך הראשון נשאר עם 4 דברים."},
+  {q:"איך בודקים בעין אם יש יותר מדי במסך הראשון?",o:["סופרים מילים","מסתכלים שנייה, ושואלים מה ראיתי ראשון","בודקים במחשב"],a:1,e:"<b>שנייה אחת ושאלה אחת.</b> אם אין תשובה אחת ברורה, יש יותר מדי."}]},
+
+{id:"p2",n:2,title:"סקאלה",
+ rule:"כל רמה גדולה בבירור מהרמה שמתחתיה. הכותרת הראשית גדולה פי 2.3 לפחות מהטקסט.",
+ before:phone(col([W.name(),W.gap(10),W.t(95,6),W.gap(3),W.t(85,6),W.gap(3),W.t(55,6),W.gap(10),W.l(95),W.gap(3),W.l(90),W.gap(3),W.l(80),W.gap(14),W.t(70,5),W.gap(6),W.l(95),W.gap(3),W.l(85),W.gap(12),W.btn()])),
+ after:phone(col([W.name(),W.gap(12),W.t(95,13),W.gap(3),W.t(85,13),W.gap(3),W.t(60,13),W.gap(5),W.g(80,8),W.gap(12),W.l(95),W.gap(4),W.l(80),W.gap(14),W.btn(),W.gap(20),W.t(80,9),W.gap(8),W.l(95),W.gap(4),W.l(85)])),
+ bNote:"הכותרת, כותרת החלק והטקסט כמעט באותו גודל. אין מה שמושך את העין.",
+ aNote:"3 רמות ברורות: כותרת ענקית, משנה באפור, טקסט. כותרת החלק באמצע.",
+ why:["לפי Nielsen Norman Group, גודל הוא הכלי הראשי ליצירת היררכיה, כלומר סדר החשיבות. דבר גדול נקרא ראשון.","כשהרמות קרובות בגודל, העין לא יודעת מאיפה להתחיל, והאתר נראה כמו מסמך."],
+ nums:[["כותרת ראשית בטלפון","42–46px"],["כותרת של חלק","30–32px"],["מספר של הוכחה","64–74px"],["טקסט","17–19px"],["יחס כותרת לטקסט","2.3+"],["ריווח שורות בכותרת","1.02"],["ריווח שורות בטקסט","1.65"]],
+ eye:["מצמצמים את העיניים עד שהטקסט מטושטש.","סופרים כמה רמות של גודל רואים.","צריך 3 ברורות. אם שתיים נראות אותו דבר, אחת מהן צריכה לגדול."],
+ mistake:"להגדיל רק את הכותרת הראשית ולשכוח את כותרות החלקים. אצל הלל כותרת החלק הייתה 19.5px, כמעט כמו הטקסט, ולכן החלק השני נראה כמו המשך של פסקה.",
+ hillel:"<b>לפני:</b> כותרת 29px, כותרת חלק 19.5px, יחס 1.68. <b>אחרי:</b> כותרת 45px, כותרת חלק 31px, מספרים 74px, יחס 2.52. והמשך הכותרת (\"בדרך בריאה...\") קטן ובאפור.",
+ say:"תבנה את הכותרות לפי הסקאלה של מסמך 35: כותרת ראשית 42–46px בטלפון, כותרת חלק 30–32, טקסט 18, ויחס של 2.3 לפחות בין הכותרת לטקסט (עיקרון 2).",
+ quiz:[
+  {q:"הכותרת 32px והטקסט 17px. מה היחס, והאם זה עובר?",o:["1.9, לא עובר","2.5, עובר","1.5, עובר"],a:0,e:"32 חלקי 17 זה 1.9. <b>צריך 2.3 לפחות,</b> כלומר כותרת של 40px ומעלה."},
+  {q:"כותרת ארוכה של 2 משפטים. איך שומרים על היררכיה?",o:["מקטינים את כולה","החלק החשוב גדול, וההמשך קטן יותר ובאפור","כותבים הכול בצבע המותג"],a:1,e:"<b>כותרת בשני גוונים:</b> העיקר בדיו ובגדול, ההמשך ב-0.68 מהגודל ובאפור. כך העין קוראת קודם את העיקר."}]},
+
+{id:"p3",n:3,title:"מרווחים",
+ rule:"משתמשים רק ב-8, 16, 24, 40, 64 ו-96. דברים ששייכים זה לזה קרובים, וחלקים רחוקים.",
+ before:phone(col([W.name(),W.gap(6),W.t(90,9),W.gap(6),W.t(70,9),W.gap(6),W.l(95),W.gap(6),W.l(85),W.gap(6),W.btn(),W.gap(6),W.t(70,7),W.gap(6),W.l(95),W.gap(6),W.l(90),W.gap(6),W.l(70),W.gap(6),W.t(60,7),W.gap(6),W.l(90)])),
+ after:phone(col([W.name(),W.gap(16),W.t(90,9),W.gap(3),W.t(70,9),W.gap(10),W.l(95),W.gap(3),W.l(85),W.gap(14),W.btn(),W.gap(30),W.t(70,7),W.gap(6),W.l(95),W.gap(3),W.l(90),W.gap(3),W.l(70)])),
+ bNote:"כל הרווחים 6px. אין קבוצות, והכול נראה כמו טופס.",
+ aNote:"קרוב בתוך קבוצה, רחוק בין חלקים. רואים 3 קבוצות בלי לקרוא מילה.",
+ why:["המוח מבין מה שייך למה לפי המרחק (זה נקרא קירבה). דברים קרובים נתפסים כקבוצה אחת.","סקאלה קבועה גורמת לכל הדף להרגיש מסודר, גם כשאף אחד לא שם לב למה."],
+ nums:[["בתוך קבוצה (מספר והמשפט שלו)","8–16"],["בין דברים באותו חלק","24–40"],["בין חלקים בטלפון","96 (לפחות 64)"],["מספרים מותרים","8 · 16 · 24 · 40 · 64 · 96"]],
+ eye:["בוחרים שני דברים סמוכים בדף.","שואלים: הם שייכים זה לזה?","אם כן, הם צריכים להיות קרובים. אם לא, צריך רווח גדול. מה שלא מתאים, מתקנים."],
+ mistake:"לפחד מרווח ריק ולמלא אותו. הכלל של המקצוענים: מתחילים עם יותר מדי רווח, ומורידים. רווח ריק הוא לא בזבוז, הוא מה שמראה מה חשוב.",
+ hillel:"<b>לפני:</b> 8–14px בין כל הדברים, ו-32px בין חלקים. <b>אחרי:</b> 96px בין חלקים ובין הוכחה להוכחה, 24–40 בתוך החלק, 8 בין מספר למשפט שלו.",
+ say:"תשתמש רק בסקאלת המרווחים 8, 16, 24, 40, 64, 96. 8–16 בתוך קבוצה, 24–40 בתוך חלק, ו-96 בין חלקים (מסמך 35, עיקרון 3).",
+ quiz:[
+  {q:"מספר הוכחה, המשפט שלו, וההוכחה הבאה. איך מסדרים את הרווחים?",o:["16 בין כולם","8 בין המספר למשפט, 96 עד ההוכחה הבאה","96 בין כולם"],a:1,e:"<b>המספר והמשפט הם קבוצה אחת,</b> אז הם קרובים. ההוכחה הבאה היא קבוצה חדשה, אז רחוקה."},
+  {q:"איזה רווח לא נמצא בסקאלה?",o:["24","40","30"],a:2,e:"הסקאלה היא 8, 16, 24, 40, 64, 96. <b>30 הוא מספר שנבחר \"בעין\",</b> ומספרים כאלה הם מה שגורם לדף להרגיש לא מסודר."}]},
+
+{id:"p4",n:4,title:"בימוי תמונה",
+ rule:"כל תמונה באתר נראית כאילו מישהו בחר וטיפל בה בכוונה. לא צילום מסך ולא פריים עם כיתוב.",
+ before:phone(col([W.name(),W.gap(6),`<div class="w-img" style="height:84px"><svg viewBox="0 0 100 60" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%"><path d="M0 60L25 28 45 45 70 18 100 50V60z" fill="#9fb08f"/><rect x="62" y="34" width="14" height="12" fill="#e8eef5"/></svg><div class="w-cap">שהייתי</div></div>`,W.gap(6),W.t(90,8),W.gap(3),W.t(60,8),W.gap(8),`<div style="display:flex;gap:5px;align-items:center"><div style="flex:1">${W.l(95)}${W.gap(3)}${W.l(70)}</div>${W.chat(30)}</div>`])),
+ after:`<div class="ph"><div class="pad">${col([W.name(),W.gap(10),W.t(90,9),W.gap(3),W.t(65,9),W.gap(10),W.btn()])}</div><div style="flex:1"></div>${W.person(64)}<div class="w-dark" style="padding:8px 10px 10px">${W.chat(100)}</div></div>`,
+ bNote:"נוף ובית ברקע, כיתוב של אינסטגרם על התמונה, וצילום הוכחה שאי אפשר לקרוא.",
+ aNote:"האדם חתוך מהרקע ועומד על החלק הבא. צילום ההוכחה ברוחב מלא וקריא.",
+ why:["תמונה שנראית כמו צילום מסך אומרת למבקר \"זה נעשה בחופזה\". תמונה מבוימת אומרת \"פה עובדים ברצינות\", עוד לפני שקראו מילה.","צילום הוכחה שאי אפשר לקרוא לא מוכיח כלום. המבקר לא יגדיל אותו."],
+ nums:[["רוחב צילום הוכחה בטלפון","300px לפחות"],["כיתוב צרוב על התמונה הראשית","0"],["חיתוך מהרקע","rembg, isnet-general-use"],["ניקוי שוליים אחרי חיתוך","אלפא 60 / 200"]],
+ eye:["מסתכלים על כל תמונה ושואלים: זה נראה כמו צילום מסך מהטלפון של מישהו?","אם כן, היא לא מוכנה.","על כל צילום הוכחה: אפשר לקרוא אותו בטלפון בלי להגדיל?"],
+ mistake:"לקחת את הפריים הראשון של ריל, עם הכיתוב של אינסטגרם, ולשים אותו בפתיחה. הפריים הנכון הוא זה שמוכיח משהו: קהל, תוצאה, עבודה.",
+ hillel:"<b>לפני:</b> תמונה מנופש עם בית ברקע, צילום הוכחה ברוחב 145px, ופוסטר של הסרטון עם \"שהייתי\". <b>אחרי:</b> הלל חתוך מהרקע ועומד על הגבול של החלק הכהה, צילומים ברוחב מלא, ופוסטר שרואים בו את הקהל.",
+ say:"תחתוך את הלקוח מהרקע (rembg עם ניקוי שוליים), תציג צילומי הוכחה ברוחב 300px לפחות, ותבחר פוסטר לסרטון שמוכיח משהו (מסמך 35, עיקרון 4).",
+ quiz:[
+  {q:"יש לך רק פריים מריל עם כיתוב צרוב. מה עושים?",o:["שמים אותו, כי זה מה שיש","מחפשים פריים אחר בלי טקסט, או מבקשים מהלקוח תמונה","מטשטשים את כל התמונה"],a:1,e:"<b>פריים בלי טקסט, או תמונה מהלקוח.</b> כיתוב צרוב בתמונה הראשית צועק \"צילום מסך\"."},
+  {q:"צילום הוואטסאפ ברוחב 150px בטלפון. מה הבעיה?",o:["אין בעיה, אפשר להגדיל","אי אפשר לקרוא אותו, אז הוא לא מוכיח כלום","הוא תופס יותר מדי מקום"],a:1,e:"מבקרים לא מגדילים. <b>הוכחה שלא קוראים לא קיימת.</b> 300px לפחות, או לחתוך רק לשורה שחשובה."}]},
+
+{id:"p5",n:5,title:"זהות",
+ rule:"גופן תצוגה לכותרות, שנבחר לפי מה שהקהל צריך להרגיש, וסימן אחד שחוזר 2–3 פעמים.",
+ before:phone(col([`<div class="w-name"><span>השם</span><span>מה הוא עושה</span></div>`,W.gap(14),`<div class="w-sans">כותרת שאומרת מה הוא עושה ולמי</div>`,W.gap(10),W.l(95),W.gap(3),W.l(80),W.gap(12),W.btn(),W.gap(22),`<div class="w-sans" style="font-size:10px">כותרת של חלק</div>`,W.gap(6),W.l(95),W.gap(3),W.l(85)])),
+ after:phone(col([W.name(1),W.gap(14),`<div class="w-hl">כותרת שאומרת מה הוא <span class="w-u">עושה</span> ולמי</div>`,W.gap(10),W.l(95),W.gap(3),W.l(80),W.gap(12),W.btn(),W.gap(22),`<div class="w-hl" style="font-size:11px">כותרת של <span class="w-u">חלק</span></div>`,W.gap(6),W.l(95),W.gap(3),W.l(85)])),
+ bNote:"אותו גופן לכל דבר, ואין שום דבר שחוזר. זה יכול להיות האתר של כל אחד.",
+ aNote:"גופן תצוגה, השם בגופן הזה, וקו אדום שחוזר מתחת למילת מפתח.",
+ why:["הגופן מדבר לפני המילים. אצל הלל הקהל פוחד מ\"עוד אחד שמוכר קורס ונעלם\", אז נבחר גופן שנראה כמו עיתון רציני ולא כמו גורו.","סימן שחוזר הופך דף לאתר של מישהו. העין מזהה אותו בחלק השני ומחברת."],
+ nums:[["גופנים בדף","2: תצוגה וטקסט"],["פעמים שהסימן חוזר","2–3"],["Frank Ruhl Libre","אמינות, עיתון"],["Suez One","חם וכבד"],["Secular One","מודרני וחזק"],["Karantina","צר, פוסטר"],["David Libre","קלאסי"]],
+ eye:["מכסים את השם של הלקוח באצבע.","שואלים: לפי הגופן, הצבע והסימן, אפשר לזהות שזה האתר שלו?","אם זה יכול להיות של כל אחד, אין זהות."],
+ mistake:"לשים את הסימן בכל מקום. סימן שמופיע 10 פעמים הופך לקישוט ומאבד משמעות. 2–3 פעמים, תמיד על המילה הכי חשובה.",
+ hillel:"<b>לפני:</b> גופן אחד בכל המשקלים, ושום דבר שחוזר. <b>אחרי:</b> Frank Ruhl Libre 900 לכותרות ולמספרים, השם בגופן הזה, וקו אדום מתחת ל\"שמכניס כסף\" ול\"אתה\".",
+ say:"תבחר גופן תצוגה עברי לפי מה שהקהל צריך להרגיש (ותסביר למה), תשים את השם בגופן הזה, ותוסיף סימן אחד שחוזר 2–3 פעמים על מילות מפתח (מסמך 35, עיקרון 5).",
+ quiz:[
+  {q:"הלקוח הוא מאמנת יוגה רגועה. איזה גופן תצוגה מתאים יותר?",o:["Karantina, צר ופוסטרי","Frank Ruhl Libre, שקט ואמין","גופן כבד וצעקני"],a:1,e:"הגופן צריך להרגיש כמו העסק. <b>יוגה = שקט,</b> אז גופן עם סריפים, עדין ואמין. Karantina מתאים יותר לאירוע או למסיבה."},
+  {q:"כמה פעמים הסימן החוזר צריך להופיע?",o:["פעם אחת","2–3, על המילים הכי חשובות","בכל כותרת"],a:1,e:"<b>2–3 פעמים.</b> פעם אחת זה לא \"חוזר\", ובכל כותרת זה כבר קישוט."}]},
+
+{id:"p6",n:6,title:"קצב",
+ rule:"מבנה מוכר, וחלקים שמתחלפים: בהיר, כהה מקצה לקצה, בהיר. השוני בין לקוחות בא מהתמונה, מהגופן ומהצבע.",
+ before:`<div class="ph"><div class="pad">${col([W.t(80,8),W.gap(4),W.l(90),W.gap(3),W.l(70),W.gap(10),W.t(70,7),W.gap(4),W.l(90),W.gap(3),W.l(80),W.gap(10),W.t(75,7),W.gap(4),W.l(90),W.gap(3),W.l(60),W.gap(10),W.t(60,7),W.gap(4),W.l(85)])}</div></div>`,
+ after:`<div class="ph" style="padding:0"><div class="pad">${col([W.t(90,10),W.gap(3),W.t(60,10),W.gap(8),W.btn()])}</div><div style="height:14px"></div><div class="w-dark" style="padding:10px;flex:1;display:flex;flex-direction:column;gap:5px"><div class="w-num">4,500</div><div style="height:3px;width:60%;background:#8c857a;border-radius:2px"></div>${W.chat(100)}<div class="w-num" style="margin-top:6px">100k</div></div><div class="pad" style="padding-bottom:10px"><div style="display:grid;gap:4px;margin-top:4px"><div style="height:13px;background:#fff;border-radius:3px"></div><div style="height:13px;background:#fff;border-radius:3px"></div>${W.btn()}</div></div></div>`,
+ bNote:"כל החלקים נראים אותו דבר, באותו רקע ובאותו רוחב. גוללים ולא מרגישים התקדמות.",
+ aNote:"בהיר, אחר כך חלק כהה מקצה לקצה עם ההוכחות (הרגע הגדול), ובהיר עם הבחירה.",
+ why:["מחקר של גוגל מצא שמבנה מוכר נתפס כיפה יותר. לכן לא ממציאים מבנה חדש לכל לקוח. השוני נעשה בתמונה, בגופן, בצבע ובסימן.","החלפה בין בהיר לכהה נותנת לגלילה קצב, ומסמנת איפה הרגע הכי חשוב."],
+ nums:[["רוחב תוכן מקסימלי","1120px"],["רקע של חלק","מקצה לקצה"],["חלקים כהים","1, לרגע הגדול"],["מבנה כל הוכחה","מספר ענק, משפט, צילום"]],
+ eye:["גוללים מהר מלמעלה עד למטה.","שואלים: הרגשתי שינוי בקצב? יש רגע אחד שבולט?","אם הכול נראה אותו דבר מההתחלה עד הסוף, אין קצב."],
+ mistake:"לחשוב ש\"אתר מיוחד\" צריך מבנה מיוחד. מבנה מוזר מבלבל. מיוחד = התמונה שלו, הגופן שלו, הצבע שלו.",
+ hillel:"<b>לפני:</b> שני חלקים בהירים באותו רוחב צר. <b>אחרי:</b> פתיחה בהירה, חלק כהה מקצה לקצה עם 3 הוכחות באותו מבנה, וחלק בהיר עם 2 כרטיסי בחירה.",
+ say:"תבנה קצב של בהיר, כהה מקצה לקצה לרגע הגדול, ושוב בהיר. כל הוכחה באותו מבנה: מספר ענק, משפט, צילום. השוני מהלקוח הקודם רק בתמונה, בגופן ובצבע (מסמך 35, עיקרון 6).",
+ quiz:[
+  {q:"לקוח חדש. איך הופכים את האתר שלו לשונה מהקודם?",o:["ממציאים מבנה חדש לגמרי","שומרים מבנה מוכר, ומשנים תמונה, גופן, צבע וסימן","משנים רק את הצבע"],a:1,e:"<b>מבנה מוכר נתפס כיפה יותר.</b> השוני בא מהדברים שמרגישים: תמונה, גופן, צבע וסימן. רק צבע זה מעט מדי."},
+  {q:"איזה חלק הכי כדאי לשים בחלק הכהה מקצה לקצה?",o:["התחתית","הרגע הגדול, למשל ההוכחות","הפתיחה"],a:1,e:"החלק הכהה בולט בגלילה. <b>שמים בו את מה שהכי משכנע,</b> בדרך כלל ההוכחות."}]}
+];
+
+const WORDS=[
+ ["היררכיה","hierarchy","מה רואים ראשון, שני ושלישי. <b>באתר של הלל:</b> כותרת ענקית, אחריה שורה באפור, אחריה כפתור."],
+ ["סקאלה","scale","יחס הגדלים בין הרמות. <b>כלל:</b> כותרת ראשית פי 2.3 לפחות מהטקסט."],
+ ["רווח לבן","white space","שטח ריק שנותן לדברים לנשום. לא חייב להיות לבן. <b>כלל:</b> מתחילים עם יותר מדי, ומורידים."],
+ ["קירבה","proximity","דברים קרובים נתפסים כקבוצה. <b>דוגמה:</b> מספר ההוכחה והמשפט שלו במרחק 8, וההוכחה הבאה במרחק 96."],
+ ["יישור","alignment","קווים נסתרים שכל הדברים עומדים עליהם. <b>בעברית:</b> הכול מיושר לימין, ולא כל חלק לצד אחר."],
+ ["ריווח אותיות","tracking","הרווח בין האותיות. <b>בכותרות גדולות:</b> קצת שלילי (-0.015em). בטקסט רגיל לא נוגעים."],
+ ["ריווח שורות","leading","הרווח בין השורות. <b>כותרת:</b> 1.02, צפוף. <b>טקסט:</b> 1.65, מרווח."],
+ ["מקצה לקצה","full-bleed","רקע או תמונה שתופסים את כל רוחב המסך. <b>דוגמה:</b> החלק הכהה של ההוכחות."],
+ ["בימוי תמונה","art direction","בחירה, חיתוך וטיפול אחיד בתמונות. <b>דוגמה:</b> הלל חתוך מהרקע ועומד על הגבול בין שני חלקים."],
+ ["מוקד","focal point","הדבר האחד שהעין נמשכת אליו בכל מסך. <b>כלל:</b> בכל מסך יש מוקד אחד, לא שלושה."]
+];
+
+const lessonDone=l=>l.quiz.every((q,i)=>LS.q[l.id+"_"+i]===q.a);
+const learnPct=()=>Math.round(LESSONS.filter(lessonDone).length/LESSONS.length*100);
+function learnSummary(){const d=LESSONS.filter(lessonDone).length,w=Object.keys(LS.w).length;return d===6&&w===10?"סיימת הכול. כדאי לחזור על הבחנים פעם בשבוע":`${d} מתוך 6 שיעורים · ${w} מתוך 10 מילים`}
+async function copyText(t){try{await navigator.clipboard.writeText(t);toast("הועתק. הדבק בשיחה עם Claude")}catch(e){const ta=document.createElement("textarea");ta.value=t;document.body.append(ta);ta.select();try{document.execCommand("copy");toast("הועתק. הדבק בשיחה עם Claude")}catch(_){toast("ההעתקה נחסמה בדפדפן")}ta.remove()}}
+
+function renderLearn(){
+ $("#topTag").textContent="למידה";
+ const next=LESSONS.find(l=>!lessonDone(l));
+ const w=Object.keys(LS.w).length;
+ $("#app").innerHTML=`
+  <button class="back" id="back">› חזרה</button>
+  <h1 style="margin-top:6px">6 עקרונות עיצוב</h1>
+  <p class="muted small" style="margin:0">כל שיעור: הכלל, לפני ואחרי, המספרים, מבחן עין, הטעות הנפוצה, ובוחן קצר. שיעור מסומן כשעונים נכון על הבוחן.</p>
+  <div class="prog"><div class="bar"><i style="width:${learnPct()}%"></i></div><span class="t">${LESSONS.filter(lessonDone).length}/6</span></div>
+  ${LESSONS.map(l=>{const d=lessonDone(l);const a=l.quiz.filter((q,i)=>LS.q[l.id+"_"+i]!==undefined).length;return `<button class="ls-card ${d?"done":""}" data-l="${l.id}"><span class="no">${d?"✓":l.n}</span><span><span class="tt" style="display:block">${esc(l.title)}</span><span class="rl" style="display:block">${esc(l.rule)}</span><span class="st" style="display:block">${d?"נלמד":a?"התחלת. הבוחן עוד לא עבר":"עוד לא התחלת"}</span></span></button>`}).join("")}
+  <div class="sec-h"><h2>10 המילים</h2><span class="muted small">${w}/10</span></div>
+  <button class="ls-card ${w===10?"done":""}" id="toWords"><span class="no">${w===10?"✓":"א"}</span><span><span class="tt" style="display:block">המילים שבעזרתן מכוונים את Claude</span><span class="rl" style="display:block">היררכיה, סקאלה, רווח לבן, קירבה ועוד. לוחצים על מילה כדי לראות את ההסבר.</span></span></button>
+  <div class="alert" style="margin-top:18px"><span class="dot" style="background:var(--brand)"></span><div><b>איך מכוונים את Claude</b><span class="muted small">צילום מסך של אתר שאתה אוהב, ותכונה אחת מדויקת. למשל: "הפתיחה כמו בהורמוזי, רק כותרת, שורה וכפתור". בכל שיעור יש משפט מוכן להעתקה.</span></div></div>`;
+ $("#back").onclick=()=>go({page:"home"});
+ document.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>go({page:"lesson",lid:b.dataset.l}));
+ $("#toWords").onclick=()=>go({page:"words"});
+ bottom(next?`<button class="btn primary" id="lgo">${LESSONS.some(lessonDone)?"להמשיך":"להתחיל"}: שיעור ${next.n}, ${esc(next.title)}</button>`:`<button class="btn primary" id="lgo">לחזור על השיעור הראשון</button>`);
+ $("#lgo").onclick=()=>go({page:"lesson",lid:(next||LESSONS[0]).id});
+}
+
+function renderLesson(){
+ const k=LESSONS.findIndex(x=>x.id===view.lid);const l=LESSONS[k<0?0:k];
+ $("#topTag").textContent=`שיעור ${l.n} מתוך 6`;
+ $("#app").innerHTML=`
+  <button class="back" id="back">› כל השיעורים</button>
+  <div class="lesson-h"><div class="k">עיקרון ${l.n} · ${esc(l.title)}</div><div class="rule">${esc(l.rule)}</div></div>
+  <section class="l-sec"><h2>לפני ואחרי</h2>
+   <div class="cmp"><figure><figcaption>לפני</figcaption>${l.before}<div class="note">${esc(l.bNote)}</div></figure><figure><figcaption>אחרי</figcaption>${l.after}<div class="note">${esc(l.aNote)}</div></figure></div></section>
+  <section class="l-sec"><h2>למה זה עובד</h2>${l.why.map(p=>`<p>${esc(p)}</p>`).join("")}</section>
+  <section class="l-sec"><h2>המספרים</h2><table class="l-tab">${l.nums.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}</table></section>
+  <section class="l-sec"><h2>מבחן העין, על כל אתר</h2><ol class="l-steps">${l.eye.map(s=>`<li>${esc(s)}</li>`).join("")}</ol></section>
+  <section class="l-sec"><h2>הטעות הנפוצה</h2><div class="l-mist">${esc(l.mistake)}</div></section>
+  <section class="l-sec"><h2>מה זה עשה אצל הלל</h2><div class="l-case">${l.hillel}</div></section>
+  <section class="l-sec"><h2>בוחן</h2><div id="qzBox">${l.quiz.map((q,i)=>qzHTML(l,q,i)).join("")}</div></section>
+  <section class="l-sec"><h2>להגיד ל-Claude</h2><div class="l-say">${esc(l.say)}<button class="btn" id="say">העתק את המשפט</button></div></section>`;
+ $("#back").onclick=()=>go({page:"learn"});
+ $("#say").onclick=()=>copyText(l.say);
+ bindQuiz(l);
+ const prev=LESSONS[k-1],next=LESSONS[k+1];
+ bottom(`${prev?`<button class="btn ghost" id="lprev">› ${prev.n}</button>`:""}<button class="btn primary" id="lnext">${next?`לשיעור ${next.n}: ${esc(next.title)}`:"לכל השיעורים"}</button>`);
+ if(prev)$("#lprev").onclick=()=>go({page:"lesson",lid:prev.id});
+ $("#lnext").onclick=()=>{if(!lessonDone(l)&&!confirm("הבוחן של השיעור הזה עוד לא עבר. להמשיך בכל זאת?"))return;go(next?{page:"lesson",lid:next.id}:{page:"learn"})};
+}
+function qzHTML(l,q,i){
+ const key=l.id+"_"+i,ans=LS.q[key],got=ans!==undefined;
+ return `<div class="qz" data-qz="${i}"><div class="q">${i+1}. ${esc(q.q)}</div><div class="opts">${q.o.map((o,j)=>`<button data-o="${j}" class="${got&&j===q.a?"ok":got&&j===ans?"no":""}" aria-pressed="${got&&j===ans}">${esc(o)}</button>`).join("")}</div>${got?`<div class="ex">${ans===q.a?"<b>נכון.</b> ":"<b>לא בדיוק.</b> "}${q.e}${ans!==q.a?` <button class="filter" data-retry="${i}">לנסות שוב</button>`:""}</div>`:""}</div>`;
+}
+function bindQuiz(l){
+ const box=$("#qzBox");
+ box.querySelectorAll("[data-qz]").forEach(el=>{const i=+el.dataset.qz;
+  el.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const key=l.id+"_"+i;if(LS.q[key]!==undefined)return;LS.q[key]=+b.dataset.o;saveLS();el.outerHTML=qzHTML(l,l.quiz[i],i);bindQuiz(l);if(lessonDone(l))toast(`שיעור ${l.n} נלמד`)});
+  const r=el.querySelector("[data-retry]");if(r)r.onclick=()=>{delete LS.q[l.id+"_"+i];saveLS();el.outerHTML=qzHTML(l,l.quiz[i],i);bindQuiz(l)};
+ });
+}
+
+function renderWords(){
+ $("#topTag").textContent="10 המילים";
+ const w=Object.keys(LS.w).length;
+ $("#app").innerHTML=`
+  <button class="back" id="back">› למידה</button>
+  <h1 style="margin-top:6px">10 המילים</h1>
+  <p class="muted small" style="margin:0">קודם מנסים להיזכר מה המילה אומרת, ורק אז לוחצים. מילה שאתה יודע: מסמנים.</p>
+  <div class="prog"><div class="bar"><i style="width:${w*10}%"></i></div><span class="t">${w}/10</span></div>
+  <div id="wBox">${WORDS.map((x,i)=>`<div class="wd ${LS.w[i]?"known":""}" data-w="${i}" role="button" tabindex="0"><div class="w">${esc(x[0])}<small>${esc(x[1])}</small></div><div class="tap">לחיצה מראה את ההסבר</div><div class="d">${x[2]}<div style="margin-top:10px"><button class="btn ${LS.w[i]?"":"primary"}" data-k="${i}">${LS.w[i]?"להחזיר לתרגול":"אני יודע את זה"}</button></div></div></div>`).join("")}</div>`;
+ $("#back").onclick=()=>go({page:"learn"});
+ const box=$("#wBox");
+ box.querySelectorAll("[data-w]").forEach(el=>{el.onclick=e=>{if(e.target.closest("[data-k]"))return;el.classList.toggle("open")};el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();el.classList.toggle("open")}}});
+ box.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const i=b.dataset.k;if(LS.w[i])delete LS.w[i];else LS.w[i]=1;saveLS();const y=window.scrollY;renderWords();window.scrollTo(0,y);const el=document.querySelector(`[data-w="${i}"]`);if(el)el.classList.add("open")});
+ bottom(`<button class="btn primary" id="wback">לשיעורים</button>`);
+ $("#wback").onclick=()=>go({page:"learn"});
+}
+
 /* ============ ניווט ============ */
 function bottom(h){$("#bottomIn").innerHTML=h;$("#bottom").classList.remove("hide")}
-function render(){view.page==="client"?renderClient():view.page==="quick"?renderQuick():view.page==="general"?renderGeneral():renderHome()}
+function render(){view.page==="learn"?renderLearn():view.page==="lesson"?renderLesson():view.page==="words"?renderWords():view.page==="client"?renderClient():view.page==="quick"?renderQuick():view.page==="general"?renderGeneral():renderHome()}
 render();
 sync();
 if("serviceWorker" in navigator&&isSecureContext)navigator.serviceWorker.register("sw.js").catch(()=>{});
