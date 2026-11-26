@@ -350,11 +350,14 @@ const STAGES = [
     {id:"c13",t:"אין חלק שגבוה מ-3 מסכים בטלפון",ref:"מסמך 24, סעיף 6"}
    ]},
    {h:"עיצוב",items:[
-    {id:"c14",t:"העיצוב בנוי מהרעיון של הכיוון, לא מתבנית"},
-    {id:"c15",key:1,t:"צבע המותג רק על מה שלוחצים עליו",w:"60% רקע, 30% צבע שקט, 10% מותג: הכפתור הראשי, הכפתור הצף ומילה אחת בכותרת.",ref:"מסמך 24, סעיף 2א"},
-    {id:"c16",t:"אין רכיב שמחקה משהו, ואין קישוט במקום חומר",w:"לא צ'אט מצויר, לא מד שמתמלא, לא מונה.",ref:"כלל יסוד 7"},
-    {id:"c17",t:"התמונות נראות כמו צילום אחד, ותמונת הפתיחה מחוברת לעיצוב"},
-    {id:"c18",t:"לא נראה כמו האתר הקודם",ref:"מסמך 25"}
+    {id:"c31",key:1,learn:"p1",t:"מסך ראשון בטלפון: רק כותרת, שורה, כפתור ותמונה",w:"ההוכחה יורדת לחלק הבא, והבחירה שבונה הודעה לסוף. מבחן: מסתכלים שנייה אחת. אם אין תשובה אחת ל\"מה ראיתי ראשון\", יש יותר מדי.",ref:"מסמך 35, עיקרון 1"},
+    {id:"c32",key:1,learn:"p2",t:"כותרת 42px ומעלה בטלפון, כותרת חלק 30px ומעלה, פי 2.3 מהטקסט",w:"מבחן: מפזלים, וצריך לראות 3 רמות ברורות: כותרת, משנה וטקסט. כותרת ארוכה: העיקר גדול, וההמשך קטן ובאפור.",ref:"מסמך 35, עיקרון 2"},
+    {id:"c33",learn:"p3",t:"מרווחים רק 8, 16, 24, 40, 64, 96: קרוב בתוך קבוצה, 96 בין חלקים",w:"מבחן: שני דברים סמוכים. אם הם שייכים זה לזה, הם קרובים. אם לא, יש ביניהם רווח גדול.",ref:"מסמך 35, עיקרון 3"},
+    {id:"c34",key:1,learn:"p4",t:"אין פריים עם כיתוב בתמונה הראשית, וכל צילום הוכחה קריא בטלפון",w:"הלקוח חתוך מהרקע או תמונה נקייה. צילום הוכחה ברוחב 300px לפחות. פוסטר של סרטון: פריים שמוכיח משהו.",ref:"מסמך 35, עיקרון 4"},
+    {id:"c35",learn:"p5",t:"גופן תצוגה שנבחר לפי מה שהקהל צריך להרגיש, וסימן אחד שחוזר 2–3 פעמים",w:"מבחן: מכסים את השם באצבע. אם עדיין מזהים שזה האתר שלו, יש זהות.",ref:"מסמך 35, עיקרון 5"},
+    {id:"c36",learn:"p6",t:"חלק כהה מקצה לקצה לרגע הגדול, וכל הוכחה היא מספר ענק, משפט וצילום",w:"השוני מהאתר הקודם בתמונה, בגופן, בצבע ובסימן, לא בהמצאת מבנה. מבחן: גוללים מהר ומרגישים קצב.",ref:"מסמך 35, עיקרון 6"},
+    {id:"c15",key:1,t:"צבע המותג רק על כפתורים, על מילה אחת בפתיחה ועל הסימן שחוזר",w:"60% רקע, 30% צבע שקט, 10% מותג.",ref:"מסמך 24 סעיף 2א, ומסמך 35 עיקרון 5"},
+    {id:"c16",t:"אין רכיב שמחקה משהו, ואין קישוט במקום חומר",w:"לא צ'אט מצויר, לא מד שמתמלא, לא מונה.",ref:"כלל יסוד 7"}
    ]},
    {h:"פניות",items:[
     {id:"c19",key:1,t:"הפעולה הראשית זמינה לאורך כל הגלילה",w:"כפתור צף, או פס תחתון בעסק מקומי. מוסתר רק כשסרטון על המסך."},
@@ -368,7 +371,7 @@ const STAGES = [
     {id:"c25",t:"טקסט על תמונה או סרטון קריא",w:"4.5:1 לטקסט רגיל, 3:1 לכותרת גדולה.",ref:"מסמך 9"},
     {id:"c26",t:"שלחתי לעצמי בוואטסאפ, ותמונת התצוגה מופיעה"},
     {id:"c27",t:"noindex בסקיצה, og עם כתובות מלאות"},
-    {id:"c28",t:"כל הבדיקות האוטומטיות עברו, אין שגיאות בקונסול"}
+    {id:"c28",t:"כל הבדיקות האוטומטיות עברו, כולל design_test.py, ואין שגיאות בקונסול",ref:"מסמכים 31 ו-35"}
    ]},
    {h:"מבקר חדש",items:[
     {id:"c29",t:"הראיתי ל-5 שניות למישהו שלא מכיר את הלקוח",w:"ושאלתי: מה הוא מציע, ולאן היית לוחץ? Claude ואני כבר יודעים הכול. רק אדם חדש יגלה שהמסך הראשון לא ברור. הורה, אח, חבר מהכיתה.",isNew:1},
@@ -402,7 +405,7 @@ const STAGES = [
   ]}]}
 ];
 
-/* צ'קליסט מהיר: 12 סעיפים. כל סעיף מסמן את הסעיפים שלו בצ'קליסט המלא, כך ששניהם תמיד מסונכרנים */
+/* צ'קליסט מהיר: 13 סעיפים. כל סעיף מסמן את הסעיפים שלו בצ'קליסט המלא, כך ששניהם תמיד מסונכרנים */
 const QUICK=[
  {h:"לפני שבונים",items:[
   {t:"העסק מרוויח, אנשים כבר פונים, ויש דליפה שאני יכול להראות",ids:["q1"]},
@@ -413,7 +416,8 @@ const QUICK=[
   {t:"כל ציטוט וכל מספר עם מקור",ids:["c6"]},
   {t:"כל חלק עונה על משהו שעוצר פנייה",ids:["c11"]},
   {t:"הכפתור זמין בכל הגלילה, עד 2 לחיצות להודעה",ids:["c19","c20"]},
-  {t:"צבע המותג רק על כפתורים, ואין קישוט במקום חומר",ids:["c15","c16"]},
+  {t:"4 דברים במסך הראשון, כותרות גדולות, ותמונות בלי כיתוב וקריאות",ids:["c31","c32","c34"]},
+  {t:"צבע המותג רק על כפתורים ועל הסימן, ואין קישוט במקום חומר",ids:["c15","c16"]},
   {t:"פתחתי בסמסונג מחוץ לוויי-פיי, ושלחתי לעצמי בוואטסאפ",ids:["c23","c26"]},
   {t:"מישהו זר הבין תוך 5 שניות מה מוצע ואיפה לוחצים",ids:["c29"]}]},
  {h:"שליחה",items:[
@@ -630,7 +634,7 @@ function renderHome(){
   return `<button class="client" data-open="${c.id}"><div class="grow"><div class="row" style="gap:8px"><span class="nm">${esc(c.name)}</span>${chip(c.status)}</div><div class="meta">${esc(meta)||"&nbsp;"}</div>${p&&c.status!=="לא"?`<div class="meta">${esc(cur.short)} · ${p.done}/${p.total}</div>`:""}</div><span class="arrow">‹</span></button>`;
  };
  $("#app").innerHTML=`
-  <div class="qrow"><button class="quickbtn" id="quickHome">⚡ צ'קליסט מהיר<span>12 סעיפים, דקה אחת</span></button><button class="quickbtn gen" id="genHome">צ'קליסט כללי<span>25 סעיפים, 6 קטגוריות</span></button></div>
+  <div class="qrow"><button class="quickbtn" id="quickHome">⚡ צ'קליסט מהיר<span>13 סעיפים, דקה אחת</span></button><button class="quickbtn gen" id="genHome">צ'קליסט כללי<span>25 סעיפים, 6 קטגוריות</span></button></div>
   <button class="learnbtn" id="learnHome"><span class="lb-t">למידה · 6 עקרונות עיצוב</span><span class="lb-s">${learnSummary()}</span><span class="lb-bar"><i style="width:${learnPct()}%"></i></span></button>
   <h1>מה הכי חשוב עכשיו</h1>
   <p class="muted small" style="margin:0">לקוח ראשון משלם בא משליחה, לא מעוד אתר.</p>
@@ -739,7 +743,7 @@ function itemHTML(c,i){
    <button class="item-main" data-tog="${i.id}" aria-pressed="${s==="done"}"><span class="box">${s==="done"?"✓":s==="na"?"–":""}</span><span class="tx">${esc(i.t)}${i.key?'<span class="key" title="בלי זה לא שולחים">🟡</span>':""}${i.isNew?'<span class="new">חדש</span>':""}</span></button>
    <button class="more" data-more="${i.id}" aria-label="למה ואיך בודקים" style="margin:12px 0 0 12px">?</button>
   </div>
-  <div class="why">${i.w?esc(i.w):""}${i.isNew?`<div class="ref">הצעה חדשה מהבדיקה הזו. עוד לא נבדקה על לקוח.</div>`:""}${i.ref?`<div class="ref">${esc(i.ref)}</div>`:""}<button class="na-btn" data-na="${i.id}">${s==="na"?"מחזיר לבדיקה":"לא רלוונטי ללקוח הזה"}</button></div>
+  <div class="why">${i.w?esc(i.w):""}${i.isNew?`<div class="ref">הצעה חדשה מהבדיקה הזו. עוד לא נבדקה על לקוח.</div>`:""}${i.ref?`<div class="ref">${esc(i.ref)}</div>`:""}${i.learn?`<button class="na-btn" data-learn="${i.learn}" style="margin-inline-end:6px">לשיעור בלמידה</button>`:""}<button class="na-btn" data-na="${i.id}">${s==="na"?"מחזיר לבדיקה":"לא רלוונטי ללקוח הזה"}</button></div>
  </div>`;
 }
 function renderStage(c,st){
@@ -776,6 +780,7 @@ function renderStage(c,st){
  box.querySelectorAll("[data-fit]").forEach(b=>b.onclick=()=>{const k=b.dataset.fit;c.fit[k]=c.fit[k]===b.dataset.v?undefined:b.dataset.v;if(!c.fit[k])delete c.fit[k];save();renderStage(c,st);refreshTabs(c)});
  box.querySelectorAll("[data-tog]").forEach(b=>b.onclick=()=>{const k=b.dataset.tog;c.checks[k]=c.checks[k]==="done"?undefined:"done";if(!c.checks[k])delete c.checks[k];save();const y=window.scrollY;renderStage(c,st);refreshTabs(c);window.scrollTo(0,y)});
  box.querySelectorAll("[data-more]").forEach(b=>b.onclick=()=>b.closest(".item").classList.toggle("open"));
+ box.querySelectorAll("[data-learn]").forEach(b=>b.onclick=()=>go({page:"lesson",lid:b.dataset.learn}));
  box.querySelectorAll("[data-na]").forEach(b=>b.onclick=()=>{const k=b.dataset.na;c.checks[k]=c.checks[k]==="na"?undefined:"na";if(!c.checks[k])delete c.checks[k];save();const y=window.scrollY;renderStage(c,st);refreshTabs(c);window.scrollTo(0,y)});
  box.querySelectorAll("[data-brief]").forEach(t=>t.oninput=()=>{c.brief[t.dataset.brief]=t.value;save();if(t.dataset.brief==="action")refreshAction(c)});
  const hd=$("#hideDone");if(hd)hd.onclick=()=>{view.hideDone=!view.hideDone;renderStage(c,st)};
