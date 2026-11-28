@@ -194,13 +194,23 @@ details.closed summary{cursor:pointer;color:var(--muted);font-size:14px;padding:
 .l-say{border:1px solid #45531b;background:#151a08;border-radius:var(--r);padding:12px 14px;line-height:1.6}
 .l-say .btn{margin-top:10px;width:100%}
 /* לפני ואחרי: שני טלפונים קטנים */
-.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:560px}
 .cmp figure{margin:0}
 .cmp figcaption{font-size:13px;font-weight:800;margin-bottom:6px;color:var(--bad)}
 .cmp figure+figure figcaption{color:var(--brand)}
 .ph{aspect-ratio:9/16.5;background:#f3efe7;border-radius:18px;border:5px solid #2a2a28;overflow:hidden;position:relative;display:flex;flex-direction:column;color:#161412}
 .ph .pad{padding:10px 10px 0;display:flex;flex-direction:column}
-.cmp .note{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.45}
+.rd-img{position:relative;overflow:hidden;margin:8px 10px 0;height:104px;border-radius:4px;background:linear-gradient(165deg,#d3c8b4 0%,#e6dfd1 45%,#f7f3ec 100%)}
+.rd-scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(22,20,18,.84) 0%,rgba(22,20,18,.78) 42%,rgba(22,20,18,0) 88%)}
+.rd-h{position:absolute;inset-inline:8px;bottom:8px;font:900 15px/1.05 Heebo,sans-serif;color:#fff}
+.rd-sub{font:700 10px/1.3 Heebo,sans-serif}
+.rd-p{font:400 8.5px/1.6 Heebo,sans-serif;margin-top:5px}
+.rd-btn{margin-top:10px;background:#c8161d;color:#fff;border-radius:3px;font:700 9px/1 Heebo,sans-serif;text-align:center;padding:5px 0}
+.rd-dl{font-size:13px;font-weight:800;margin:18px 0 6px;color:var(--bad)}
+.rd-dl.ok{color:var(--brand)}
+.rd-desk{background:#f3efe7;border:5px solid #2a2a28;border-radius:10px;padding:10px 12px;container-type:inline-size}
+.rd-desk .rd-p{margin:0;color:#3d372f;font-size:calc(100cqw / 62);line-height:1.6}
+.cmp .note,.l-sec>.note{font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.45}
 .w-t{background:#161412;border-radius:2px}
 .w-g{background:#8c857a;border-radius:2px}
 .w-l{height:3px;background:#b9b0a2;border-radius:2px}
@@ -916,6 +926,17 @@ const W={
 };
 const phone=(inner,extra)=>`<div class="ph"><div class="pad" style="${extra||""}">${inner}</div></div>`;
 const col=(a)=>a.join("");
+/* שיעור 7 (קריאות): טקסט אמיתי במקום פסים, כי בשיעור הזה ההבדל הוא בדיוק אם אפשר לקרוא.
+   bad=true: לבן על תמונה בהירה (1.5:1), אפור בהיר (1.5:1), ושורה על כל רוחב המחשב.
+   bad=false: רקע כהה מקומי (9.7:1), טקסט כהה (10.3:1), אפור שעובר (4.9:1), ופסקה צרה במחשב. */
+const RD_P="שלושה אימונים בשבוע, תפריט פשוט ומעקב בוואטסאפ. מתאים גם למי שלא התאמן כבר שנים.";
+const RD_LONG="שלושה אימונים בשבוע, תפריט פשוט ומעקב בוואטסאפ. מתאים גם למי שלא התאמן כבר שנים, ולמי שרוצה לחזור לכושר בלי לבזבז שעות בחדר הכושר. בכל שבוע בודקים יחד מה עבד ומה משנים, וכל שאלה נענית באותו יום. אחרי חודש רואים תוצאה, ואם לא, מחליפים את התוכנית בלי לשלם על החודש הבא.";
+const rd=bad=>`<div class="ph"><div class="pad">${W.name()}</div>
+ <div class="rd-img">${W.person(64).replace('style="','style="position:absolute;bottom:0;inset-inline-end:8px;')}${bad?"":`<div class="rd-scrim"></div>`}<div class="rd-h">אימון אישי<br>שמתאים לך</div></div>
+ <div class="pad" style="padding-top:8px"><div class="rd-sub" style="color:${bad?"#c9c2b5":"#6f675c"}">בלי מנוי ובלי התחייבות</div>
+ <div class="rd-p" style="color:${bad?"#cdc6b9":"#3d372f"}">${RD_P}</div><div class="rd-btn">שלחו לי הודעה</div></div></div>
+`;
+const rdDesk=bad=>`<div class="rd-desk"><div class="rd-p" style="max-width:${bad?"100%":"46%"}">${RD_LONG}</div></div>`;
 
 const LESSONS=[
 {id:"p1",n:1,title:"מסך ראשון = 4 דברים",
@@ -1017,10 +1038,11 @@ const LESSONS=[
 /* שיעור מסרטון (מסמך 36): Flux Academy, Web Design Basics. נבדק ונוסח מחדש על ידי Claude, 28.11.2026. רק למידה, לא חלק ממסמך 35 */
 {id:"p7",n:7,title:"קריאות",
  rule:"כל טקסט מגיע לניגודיות של 4.5:1 לפחות מול הרקע שלו, ופסקה לא עוברת 75 תווים בשורה.",
- before:phone(col([W.name(),W.gap(8),`<div class="w-img" style="height:74px"><div style="position:absolute;inset-inline:8px;bottom:10px;display:grid;gap:3px"><div style="height:8px;width:90%;background:#e6dfd2;border-radius:2px"></div><div style="height:8px;width:62%;background:#e6dfd2;border-radius:2px"></div></div></div>`,W.gap(10),`<div class="w-l" style="width:95%;background:#e4ded2"></div>`,W.gap(3),`<div class="w-l" style="width:90%;background:#e4ded2"></div>`,W.gap(3),`<div class="w-l" style="width:70%;background:#e4ded2"></div>`,W.gap(12),W.btn()])),
- after:phone(col([W.name(),W.gap(8),`<div class="w-img" style="height:74px"><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(22,20,18,.88),rgba(22,20,18,0) 78%)"></div><div style="position:absolute;inset-inline:8px;bottom:10px;display:grid;gap:3px"><div style="height:8px;width:90%;background:#fff;border-radius:2px"></div><div style="height:8px;width:62%;background:#fff;border-radius:2px"></div></div></div>`,W.gap(10),W.g(70,6),W.gap(6),`<div class="w-l" style="width:95%;background:#4a443c"></div>`,W.gap(3),`<div class="w-l" style="width:90%;background:#4a443c"></div>`,W.gap(3),`<div class="w-l" style="width:70%;background:#4a443c"></div>`,W.gap(12),W.btn()])),
- bNote:"כותרת בהירה על תמונה בהירה, וטקסט אפור בהיר על רקע בהיר. קוראים רק מקרוב.",
- aNote:"רקע כהה מקומי מאחורי הכותרת, טקסט כהה, ואפור רק בהמשך הכותרת.",
+ before:rd(true),
+ after:rd(false),
+ extra:`<div class="rd-dl">במחשב, לפני</div>${rdDesk(true)}<div class="note">הפסקה נמתחת על כל רוחב התוכן: בערך 130 תווים בשורה. העין מאבדת את תחילת השורה הבאה.</div><div class="rd-dl ok">במחשב, אחרי</div>${rdDesk(false)}<div class="note">אותה פסקה, מוגבלת ל-65ch: בערך 60 תווים בשורה. הגופן לא השתנה, רק הרוחב.</div>`,
+ bNote:"כותרת לבנה על תמונה בהירה: בערך 1.2:1. משפט המשנה והטקסט באפור בהיר: 1.5:1. בשמש אי אפשר לקרוא.",
+ aNote:"רקע כהה מקומי מאחורי הכותרת: 9.7:1. טקסט כהה: 10.3:1. האפור נשאר אפור ועדיין עובר: 4.9:1.",
  why:["לפי תקן הנגישות הבינלאומי (WCAG), טקסט רגיל צריך ניגודיות של 4.5:1 לפחות מול הרקע, וטקסט גדול (כותרת) 3:1. מתחת לזה הרבה אנשים מתקשים לקרוא, במיוחד בשמש או במסך עם בהירות נמוכה.","כשהשורה ארוכה מדי, העין מאבדת את תחילת השורה הבאה. הכלל המקובל בטיפוגרפיה הוא 45–75 תווים בשורה. בטלפון זה קורה לבד, אבל במחשב התוכן מגיע עד 1120px, ושם פסקה בלי הגבלה עוברת 100 תווים."],
  nums:[["ניגודיות טקסט רגיל","4.5:1 לפחות"],["ניגודיות כותרת גדולה","3:1 לפחות"],["תווים בשורה","45–75"],["פסקה במחשב","max-width: 65ch"],["טקסט על תמונה","תמיד עם רקע כהה מקומי"],["בודקים ב","WebAIM Contrast Checker (חינם)"]],
  eye:["מורידים את בהירות המסך לחצי.","מנסים לקרוא כל טקסט בלי לקרב את הטלפון, כולל כותרת על תמונה.","פותחים במחשב ובודקים פסקה ארוכה: אם העין מאבדת את תחילת השורה הבאה, השורה ארוכה מדי."],
@@ -1080,7 +1102,7 @@ function renderLesson(){
   <button class="back" id="back">› כל השיעורים</button>
   <div class="lesson-h"><div class="k">עיקרון ${l.n} · ${esc(l.title)}</div><div class="rule">${esc(l.rule)}</div></div>
   <section class="l-sec"><h2>לפני ואחרי</h2>
-   <div class="cmp"><figure><figcaption>לפני</figcaption>${l.before}<div class="note">${esc(l.bNote)}</div></figure><figure><figcaption>אחרי</figcaption>${l.after}<div class="note">${esc(l.aNote)}</div></figure></div></section>
+   <div class="cmp"><figure><figcaption>לפני</figcaption>${l.before}<div class="note">${esc(l.bNote)}</div></figure><figure><figcaption>אחרי</figcaption>${l.after}<div class="note">${esc(l.aNote)}</div></figure></div>${l.extra||""}</section>
   <section class="l-sec"><h2>למה זה עובד</h2>${l.why.map(p=>`<p>${esc(p)}</p>`).join("")}</section>
   <section class="l-sec"><h2>המספרים</h2><table class="l-tab">${l.nums.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}</table></section>
   <section class="l-sec"><h2>מבחן העין, על כל אתר</h2><ol class="l-steps">${l.eye.map(s=>`<li>${esc(s)}</li>`).join("")}</ol></section>
