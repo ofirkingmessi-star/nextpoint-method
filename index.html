@@ -163,7 +163,7 @@ details.closed summary{cursor:pointer;color:var(--muted);font-size:14px;padding:
 .hide{display:none!important}
 @media(min-width:700px){h1{font-size:30px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-/* ===== למידה: 6 עקרונות עיצוב (מסמך 35). ההתקדמות נשמרת בנפרד, במפתח nextpoint_learn_v1, ולא נוגעת בנתוני הלקוחות ===== */
+/* ===== למידה: עקרונות עיצוב (מסמך 35, ושיעורים מסרטונים לפי מסמך 36). ההתקדמות נשמרת בנפרד, במפתח nextpoint_learn_v1, ולא נוגעת בנתוני הלקוחות ===== */
 .learnbtn{width:100%;margin-top:8px;display:grid;gap:3px;text-align:right;background:var(--panel);border:1px solid #45531b;border-radius:var(--r);padding:14px 16px;color:var(--text)}
 .learnbtn .lb-t{font-weight:800;font-size:16px}
 .learnbtn .lb-s{font-size:13px;color:var(--muted)}
@@ -635,7 +635,7 @@ function renderHome(){
  };
  $("#app").innerHTML=`
   <div class="qrow"><button class="quickbtn" id="quickHome">⚡ צ'קליסט מהיר<span>13 סעיפים, דקה אחת</span></button><button class="quickbtn gen" id="genHome">צ'קליסט כללי<span>25 סעיפים, 6 קטגוריות</span></button></div>
-  <button class="learnbtn" id="learnHome"><span class="lb-t">למידה · 6 עקרונות עיצוב</span><span class="lb-s">${learnSummary()}</span><span class="lb-bar"><i style="width:${learnPct()}%"></i></span></button>
+  <button class="learnbtn" id="learnHome"><span class="lb-t">למידה · ${LESSONS.length} עקרונות עיצוב</span><span class="lb-s">${learnSummary()}</span><span class="lb-bar"><i style="width:${learnPct()}%"></i></span></button>
   <h1>מה הכי חשוב עכשיו</h1>
   <p class="muted small" style="margin:0">לקוח ראשון משלם בא משליחה, לא מעוד אתר.</p>
   ${a.length?a.map(x=>`<div class="alert ${x.c}" ${x.id?`data-open="${x.id}" style="cursor:pointer"`:""}><span class="dot"></span><div><b>${esc(x.b)}</b><span class="muted small">${esc(x.t)}</span></div></div>`).join(""):`<div class="alert ok"><span class="dot"></span><div><b>אין שום דבר דחוף</b><span class="muted small">זמן טוב למצוא את הלקוח הבא (שלב 0).</span></div></div>`}
@@ -896,7 +896,7 @@ function renderGeneral(){
  };
 }
 
-/* ============ למידה: 6 עקרונות עיצוב (מסמך 35) ============
+/* ============ למידה: עקרונות עיצוב (מסמך 35, ושיעורים מסרטונים לפי מסמך 36) ============
    ההתקדמות נשמרת במפתח נפרד (LK), כדי שלא תיגע בנתוני הלקוחות ובסנכרון שלהם. */
 const LK="nextpoint_learn_v1";
 let LS={q:{},w:{}};
@@ -924,7 +924,7 @@ const LESSONS=[
  after:`<div class="ph"><div class="pad">${col([W.name(),W.gap(14),W.t(95,11),W.gap(3),W.t(80,11),W.gap(3),W.g(70,7),W.gap(10),W.l(95),W.gap(3),W.l(75),W.gap(12),W.btn()])}</div><div style="flex:1"></div>${W.person(70)}<div class="w-dark" style="height:16px"></div></div>`,
  bNote:"7 דברים. העין קופצת ביניהם ולא נוחתת על אף אחד.",
  aNote:"4 דברים. העין קוראת לפי הסדר: כותרת, שורה, כפתור, אדם.",
- why:["מבקר מחליט אם להישאר תוך פחות משנייה. מחקר של גוגל מצא שאתרים עם מעט דברים ומבנה מוכר נתפסים כיפים ביותר, והשיפוט קורה תוך 17 עד 50 אלפיות שנייה.","כשיש 7 דברים, כל אחד מהם נלחם על תשומת הלב. כשיש 4, הם עובדים יחד."],
+ why:["מבקר מחליט אם להישאר תוך פחות משנייה. מחקר של גוגל מצא שאתרים עם מעט דברים ומבנה מוכר נתפסים כיפים ביותר, והשיפוט קורה תוך 17 עד 50 אלפיות שנייה.","כשיש 7 דברים, כל אחד מהם נלחם על תשומת הלב. כשיש 4, הם עובדים יחד.","גם Flux Academy מראים את זה (Web Design Basics, בפרק על היררכיה): באתר של חדר בריחה, רקע שזז, תמונה צבעונית ולוגו באותו גודל מתחרים זה בזה, והעין לא יודעת לאן ללכת. כשמדגישים הכול, לא מדגישים כלום."],
  nums:[["דברים במסך הראשון","4"],["כפתורים במסך הראשון","1"],["מה יורד למטה","הוכחות, בחירות, סיפור"]],
  eye:["פותחים את האתר בטלפון ולא גוללים.","מסתכלים שנייה אחת, וסוגרים את העיניים.","שואלים: מה ראיתי ראשון? אם יש יותר מתשובה אחת, יש יותר מדי."],
  mistake:"לחשוב שכל דבר \"חשוב שיראו מיד\". כשהכול חשוב, שום דבר לא חשוב. הוכחה שמחכה 10 שניות לגלילה עובדת יותר טוב מהוכחה שצפופה במסך הראשון.",
@@ -1012,7 +1012,25 @@ const LESSONS=[
  say:"תבנה קצב של בהיר, כהה מקצה לקצה לרגע הגדול, ושוב בהיר. כל הוכחה באותו מבנה: מספר ענק, משפט, צילום. השוני מהלקוח הקודם רק בתמונה, בגופן ובצבע (מסמך 35, עיקרון 6).",
  quiz:[
   {q:"לקוח חדש. איך הופכים את האתר שלו לשונה מהקודם?",o:["ממציאים מבנה חדש לגמרי","שומרים מבנה מוכר, ומשנים תמונה, גופן, צבע וסימן","משנים רק את הצבע"],a:1,e:"<b>מבנה מוכר נתפס כיפה יותר.</b> השוני בא מהדברים שמרגישים: תמונה, גופן, צבע וסימן. רק צבע זה מעט מדי."},
-  {q:"איזה חלק הכי כדאי לשים בחלק הכהה מקצה לקצה?",o:["התחתית","הרגע הגדול, למשל ההוכחות","הפתיחה"],a:1,e:"החלק הכהה בולט בגלילה. <b>שמים בו את מה שהכי משכנע,</b> בדרך כלל ההוכחות."}]}
+  {q:"איזה חלק הכי כדאי לשים בחלק הכהה מקצה לקצה?",o:["התחתית","הרגע הגדול, למשל ההוכחות","הפתיחה"],a:1,e:"החלק הכהה בולט בגלילה. <b>שמים בו את מה שהכי משכנע,</b> בדרך כלל ההוכחות."}]},
+
+/* שיעור מסרטון (מסמך 36): Flux Academy, Web Design Basics. נבדק ונוסח מחדש על ידי Claude, 28.11.2026. רק למידה, לא חלק ממסמך 35 */
+{id:"p7",n:7,title:"קריאות",
+ rule:"כל טקסט מגיע לניגודיות של 4.5:1 לפחות מול הרקע שלו, ופסקה לא עוברת 75 תווים בשורה.",
+ before:phone(col([W.name(),W.gap(8),`<div class="w-img" style="height:74px"><div style="position:absolute;inset-inline:8px;bottom:10px;display:grid;gap:3px"><div style="height:8px;width:90%;background:#e6dfd2;border-radius:2px"></div><div style="height:8px;width:62%;background:#e6dfd2;border-radius:2px"></div></div></div>`,W.gap(10),`<div class="w-l" style="width:95%;background:#e4ded2"></div>`,W.gap(3),`<div class="w-l" style="width:90%;background:#e4ded2"></div>`,W.gap(3),`<div class="w-l" style="width:70%;background:#e4ded2"></div>`,W.gap(12),W.btn()])),
+ after:phone(col([W.name(),W.gap(8),`<div class="w-img" style="height:74px"><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(22,20,18,.88),rgba(22,20,18,0) 78%)"></div><div style="position:absolute;inset-inline:8px;bottom:10px;display:grid;gap:3px"><div style="height:8px;width:90%;background:#fff;border-radius:2px"></div><div style="height:8px;width:62%;background:#fff;border-radius:2px"></div></div></div>`,W.gap(10),W.g(70,6),W.gap(6),`<div class="w-l" style="width:95%;background:#4a443c"></div>`,W.gap(3),`<div class="w-l" style="width:90%;background:#4a443c"></div>`,W.gap(3),`<div class="w-l" style="width:70%;background:#4a443c"></div>`,W.gap(12),W.btn()])),
+ bNote:"כותרת בהירה על תמונה בהירה, וטקסט אפור בהיר על רקע בהיר. קוראים רק מקרוב.",
+ aNote:"רקע כהה מקומי מאחורי הכותרת, טקסט כהה, ואפור רק בהמשך הכותרת.",
+ why:["לפי תקן הנגישות הבינלאומי (WCAG), טקסט רגיל צריך ניגודיות של 4.5:1 לפחות מול הרקע, וטקסט גדול (כותרת) 3:1. מתחת לזה הרבה אנשים מתקשים לקרוא, במיוחד בשמש או במסך עם בהירות נמוכה.","כשהשורה ארוכה מדי, העין מאבדת את תחילת השורה הבאה. הכלל המקובל בטיפוגרפיה הוא 45–75 תווים בשורה. בטלפון זה קורה לבד, אבל במחשב התוכן מגיע עד 1120px, ושם פסקה בלי הגבלה עוברת 100 תווים."],
+ nums:[["ניגודיות טקסט רגיל","4.5:1 לפחות"],["ניגודיות כותרת גדולה","3:1 לפחות"],["תווים בשורה","45–75"],["פסקה במחשב","max-width: 65ch"],["טקסט על תמונה","תמיד עם רקע כהה מקומי"],["בודקים ב","WebAIM Contrast Checker (חינם)"]],
+ eye:["מורידים את בהירות המסך לחצי.","מנסים לקרוא כל טקסט בלי לקרב את הטלפון, כולל כותרת על תמונה.","פותחים במחשב ובודקים פסקה ארוכה: אם העין מאבדת את תחילת השורה הבאה, השורה ארוכה מדי."],
+ mistake:"לחשוב שאפור אסור. אפור מותר, גם בהמשך הכותרת (עיקרון 2), כל עוד הוא כהה מספיק. הבעיה היא ניגודיות חלשה, לא הצבע. והטעות השנייה: לתקן שורה ארוכה בהקטנת הגופן. מצמצמים את הפסקה, לא את האותיות.",
+ caseT:"מהסרטון של Flux Academy",
+ hillel:"<b>בסרטון:</b> אתר של חדר בריחה עם טקסט קטן על רקע שזז. קשה לקרוא, ולכן קשה להבין מה מוצע. <b>אצלך זה יכול לקרות</b> בכותרת על פריים מריל: הפריים בהיר, הכותרת בהירה, ואין רקע כהה ביניהם.",
+ say:"תבדוק שכל טקסט מגיע לניגודיות של 4.5:1 לפחות (כותרות גדולות 3:1), תשים רקע כהה מקומי מאחורי כל טקסט על תמונה, ותגביל פסקאות במחשב ל-max-width של 65ch.",
+ quiz:[
+  {q:"המשך הכותרת כתוב באפור על רקע לבן. מה עושים?",o:["מחליפים לשחור, כי אפור אסור","בודקים שהניגודיות 4.5:1 לפחות, ואם לא, מכהים את האפור","מגדילים את הכותרת כדי שתבלוט"],a:1,e:"<b>אפור מותר.</b> מה שקובע הוא הניגודיות: 4.5:1 לפחות לטקסט רגיל. בודקים בכלי, לא בעין."},
+  {q:"במחשב, פסקת הסיפור נמתחת על כל רוחב התוכן, 1120px. מה עושים?",o:["מקטינים את הגופן כדי שייראה מסודר","משאירים, כי בטלפון זה נראה טוב","מגבילים את הפסקה לבערך 65 תווים בשורה"],a:2,e:"<b>45–75 תווים בשורה.</b> מצמצמים את רוחב הפסקה (max-width: 65ch), ולא את הגופן."}]}
 ];
 
 const WORDS=[
@@ -1025,12 +1043,14 @@ const WORDS=[
  ["ריווח שורות","leading","הרווח בין השורות. <b>כותרת:</b> 1.02, צפוף. <b>טקסט:</b> 1.65, מרווח."],
  ["מקצה לקצה","full-bleed","רקע או תמונה שתופסים את כל רוחב המסך. <b>דוגמה:</b> החלק הכהה של ההוכחות."],
  ["בימוי תמונה","art direction","בחירה, חיתוך וטיפול אחיד בתמונות. <b>דוגמה:</b> הלל חתוך מהרקע ועומד על הגבול בין שני חלקים."],
- ["מוקד","focal point","הדבר האחד שהעין נמשכת אליו בכל מסך. <b>כלל:</b> בכל מסך יש מוקד אחד, לא שלושה."]
+ ["מוקד","focal point","הדבר האחד שהעין נמשכת אליו בכל מסך. <b>כלל:</b> בכל מסך יש מוקד אחד, לא שלושה."],
+ ["ניגודיות","contrast","ההבדל בבהירות בין טקסט לרקע שלו. <b>כלל:</b> טקסט רגיל 4.5:1 לפחות, כותרת גדולה 3:1. בודקים ב-WebAIM Contrast Checker."],
+ ["אורך שורה","line length","כמה תווים יש בשורה אחת של פסקה. <b>כלל:</b> 45–75. בטלפון זה קורה לבד, ובמחשב מגבילים את הפסקה ל-65ch בערך."]
 ];
 
 const lessonDone=l=>l.quiz.every((q,i)=>LS.q[l.id+"_"+i]===q.a);
 const learnPct=()=>Math.round(LESSONS.filter(lessonDone).length/LESSONS.length*100);
-function learnSummary(){const d=LESSONS.filter(lessonDone).length,w=Object.keys(LS.w).length;return d===6&&w===10?"סיימת הכול. כדאי לחזור על הבחנים פעם בשבוע":`${d} מתוך 6 שיעורים · ${w} מתוך 10 מילים`}
+function learnSummary(){const d=LESSONS.filter(lessonDone).length,w=Object.keys(LS.w).length;return d===LESSONS.length&&w===WORDS.length?"סיימת הכול. כדאי לחזור על הבחנים פעם בשבוע":`${d} מתוך ${LESSONS.length} שיעורים · ${w} מתוך ${WORDS.length} מילים`}
 async function copyText(t){try{await navigator.clipboard.writeText(t);toast("הועתק. הדבק בשיחה עם Claude")}catch(e){const ta=document.createElement("textarea");ta.value=t;document.body.append(ta);ta.select();try{document.execCommand("copy");toast("הועתק. הדבק בשיחה עם Claude")}catch(_){toast("ההעתקה נחסמה בדפדפן")}ta.remove()}}
 
 function renderLearn(){
@@ -1039,12 +1059,12 @@ function renderLearn(){
  const w=Object.keys(LS.w).length;
  $("#app").innerHTML=`
   <button class="back" id="back">› חזרה</button>
-  <h1 style="margin-top:6px">6 עקרונות עיצוב</h1>
+  <h1 style="margin-top:6px">${LESSONS.length} עקרונות עיצוב</h1>
   <p class="muted small" style="margin:0">כל שיעור: הכלל, לפני ואחרי, המספרים, מבחן עין, הטעות הנפוצה, ובוחן קצר. שיעור מסומן כשעונים נכון על הבוחן.</p>
-  <div class="prog"><div class="bar"><i style="width:${learnPct()}%"></i></div><span class="t">${LESSONS.filter(lessonDone).length}/6</span></div>
+  <div class="prog"><div class="bar"><i style="width:${learnPct()}%"></i></div><span class="t">${LESSONS.filter(lessonDone).length}/${LESSONS.length}</span></div>
   ${LESSONS.map(l=>{const d=lessonDone(l);const a=l.quiz.filter((q,i)=>LS.q[l.id+"_"+i]!==undefined).length;return `<button class="ls-card ${d?"done":""}" data-l="${l.id}"><span class="no">${d?"✓":l.n}</span><span><span class="tt" style="display:block">${esc(l.title)}</span><span class="rl" style="display:block">${esc(l.rule)}</span><span class="st" style="display:block">${d?"נלמד":a?"התחלת. הבוחן עוד לא עבר":"עוד לא התחלת"}</span></span></button>`}).join("")}
-  <div class="sec-h"><h2>10 המילים</h2><span class="muted small">${w}/10</span></div>
-  <button class="ls-card ${w===10?"done":""}" id="toWords"><span class="no">${w===10?"✓":"א"}</span><span><span class="tt" style="display:block">המילים שבעזרתן מכוונים את Claude</span><span class="rl" style="display:block">היררכיה, סקאלה, רווח לבן, קירבה ועוד. לוחצים על מילה כדי לראות את ההסבר.</span></span></button>
+  <div class="sec-h"><h2>${WORDS.length} המילים</h2><span class="muted small">${w}/${WORDS.length}</span></div>
+  <button class="ls-card ${w===WORDS.length?"done":""}" id="toWords"><span class="no">${w===WORDS.length?"✓":"א"}</span><span><span class="tt" style="display:block">המילים שבעזרתן מכוונים את Claude</span><span class="rl" style="display:block">היררכיה, סקאלה, רווח לבן, קירבה ועוד. לוחצים על מילה כדי לראות את ההסבר.</span></span></button>
   <div class="alert" style="margin-top:18px"><span class="dot" style="background:var(--brand)"></span><div><b>איך מכוונים את Claude</b><span class="muted small">צילום מסך של אתר שאתה אוהב, ותכונה אחת מדויקת. למשל: "הפתיחה כמו בהורמוזי, רק כותרת, שורה וכפתור". בכל שיעור יש משפט מוכן להעתקה.</span></div></div>`;
  $("#back").onclick=()=>go({page:"home"});
  document.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>go({page:"lesson",lid:b.dataset.l}));
@@ -1055,7 +1075,7 @@ function renderLearn(){
 
 function renderLesson(){
  const k=LESSONS.findIndex(x=>x.id===view.lid);const l=LESSONS[k<0?0:k];
- $("#topTag").textContent=`שיעור ${l.n} מתוך 6`;
+ $("#topTag").textContent=`שיעור ${l.n} מתוך ${LESSONS.length}`;
  $("#app").innerHTML=`
   <button class="back" id="back">› כל השיעורים</button>
   <div class="lesson-h"><div class="k">עיקרון ${l.n} · ${esc(l.title)}</div><div class="rule">${esc(l.rule)}</div></div>
@@ -1065,7 +1085,7 @@ function renderLesson(){
   <section class="l-sec"><h2>המספרים</h2><table class="l-tab">${l.nums.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("")}</table></section>
   <section class="l-sec"><h2>מבחן העין, על כל אתר</h2><ol class="l-steps">${l.eye.map(s=>`<li>${esc(s)}</li>`).join("")}</ol></section>
   <section class="l-sec"><h2>הטעות הנפוצה</h2><div class="l-mist">${esc(l.mistake)}</div></section>
-  <section class="l-sec"><h2>מה זה עשה אצל הלל</h2><div class="l-case">${l.hillel}</div></section>
+  <section class="l-sec"><h2>${esc(l.caseT||"מה זה עשה אצל הלל")}</h2><div class="l-case">${l.hillel}</div></section>
   <section class="l-sec"><h2>בוחן</h2><div id="qzBox">${l.quiz.map((q,i)=>qzHTML(l,q,i)).join("")}</div></section>
   <section class="l-sec"><h2>להגיד ל-Claude</h2><div class="l-say">${esc(l.say)}<button class="btn" id="say">העתק את המשפט</button></div></section>`;
  $("#back").onclick=()=>go({page:"learn"});
@@ -1089,13 +1109,13 @@ function bindQuiz(l){
 }
 
 function renderWords(){
- $("#topTag").textContent="10 המילים";
+ $("#topTag").textContent=`${WORDS.length} המילים`;
  const w=Object.keys(LS.w).length;
  $("#app").innerHTML=`
   <button class="back" id="back">› למידה</button>
-  <h1 style="margin-top:6px">10 המילים</h1>
+  <h1 style="margin-top:6px">${WORDS.length} המילים</h1>
   <p class="muted small" style="margin:0">קודם מנסים להיזכר מה המילה אומרת, ורק אז לוחצים. מילה שאתה יודע: מסמנים.</p>
-  <div class="prog"><div class="bar"><i style="width:${w*10}%"></i></div><span class="t">${w}/10</span></div>
+  <div class="prog"><div class="bar"><i style="width:${Math.round(w/WORDS.length*100)}%"></i></div><span class="t">${w}/${WORDS.length}</span></div>
   <div id="wBox">${WORDS.map((x,i)=>`<div class="wd ${LS.w[i]?"known":""}" data-w="${i}" role="button" tabindex="0"><div class="w">${esc(x[0])}<small>${esc(x[1])}</small></div><div class="tap">לחיצה מראה את ההסבר</div><div class="d">${x[2]}<div style="margin-top:10px"><button class="btn ${LS.w[i]?"":"primary"}" data-k="${i}">${LS.w[i]?"להחזיר לתרגול":"אני יודע את זה"}</button></div></div></div>`).join("")}</div>`;
  $("#back").onclick=()=>go({page:"learn"});
  const box=$("#wBox");
